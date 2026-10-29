@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dhau1hkyu8vvv"]
+
+[ext_resource type="TileSet" uid="uid://cm5vyswjcicxs" path="res://assets/gfx/tilesets/stone_floor.tres" id="1_oax5x"]
+
+[node name="TileMapLayer" type="TileMapLayer" unique_id=1850578207]
+tile_set = ExtResource("1_oax5x")

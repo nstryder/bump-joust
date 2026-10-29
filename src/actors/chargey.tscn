@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://devg3o5en8yjo"]
+
+[ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_3e2b4"]
+[ext_resource type="Script" uid="uid://dag16dodjy8b5" path="res://src/actors/chargey.gd" id="1_kamsm"]
+[ext_resource type="Texture2D" uid="uid://c6hy5xymfxf4k" path="res://assets/gfx/sprites/6dir_3.png" id="2_kamsm"]
+
+[node name="Chargey" unique_id=500541823 instance=ExtResource("1_3e2b4")]
+script = ExtResource("1_kamsm")
+acceleration = 2000.0
+charge_accel = 1300.0
+charging_speed_modifier = 0.5
+charge_force = 500.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=170752210]
+texture = ExtResource("2_kamsm")
