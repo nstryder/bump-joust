@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bih6hktyc36cn"]
+
+[ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle.svg" id="1_31ptg"]
+[ext_resource type="Script" uid="uid://brqbbx2tpedly" path="res://src/vfx/particles/circle_burst.gd" id="2_s4p01"]
+
+[sub_resource type="Curve" id="Curve_ktohr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.8945162, 0.0, 0, 0]
+point_count = 2
+
+[node name="CircleBurst" type="CPUParticles2D" unique_id=1297313251]
+emitting = false
+amount = 2
+texture = ExtResource("1_31ptg")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 62.0
+initial_velocity_max = 120.0
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 0.8
+scale_amount_curve = SubResource("Curve_ktohr")
+script = ExtResource("2_s4p01")

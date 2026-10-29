@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://tkjnuj4funj3"]
 
-[ext_resource type="Texture2D" uid="uid://dxpux85ldyfar" path="res://assets/gfx/sprites/explosion.png" id="1_dvbte"]
+[ext_resource type="Texture2D" uid="uid://dxpux85ldyfar" path="res://assets/vfx/explosion.png" id="1_dvbte"]
 [ext_resource type="Script" uid="uid://c1r0cnsps34gv" path="res://src/vfx/explosion.gd" id="2_01vq6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_01vq6"]

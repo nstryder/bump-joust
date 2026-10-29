@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="Bump Joust"
+run/main_scene="uid://bm6bbakmfe0yg"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://dlhsoj27krkng"
+
+[autoload]
+
+Audio="*uid://ux00gvfwmt7a"
 
 [debug]
 

@@ -2,7 +2,12 @@ extends RigidBody2D
 class_name Actor
 
 
+signal collided(at: Vector2)
+
+
 @export var bump_intensity: float = 280
+@export var sfx_death: AudioStream
+@export var hit_stop_duration: float = 0.1
 
 
 var input_direction := Vector2.ZERO
@@ -13,6 +18,7 @@ var last_nonzero_x: float = 1.0
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 @onready var debug_speed: Label = $DEBUG_Speed
+@onready var bump_sfx: AudioStreamPlayer2D = $BumpSfx
 
 
 func _ready() -> void:
@@ -26,9 +32,12 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	for i in state.get_contact_count():
 		var bump_normal: Vector2 = state.get_contact_local_normal(i)
 		state.apply_central_impulse(bump_normal * bump_intensity)
+		collided.emit(state.get_contact_collider_position(i))
 
-
+		
 func die() -> void:
 	var explosion := Explosion.construct()
 	explosion.global_position = global_position
 	get_tree().root.add_child(explosion)
+	Audio.play_2d(sfx_death, global_position)
+	queue_free()
