@@ -2,7 +2,7 @@ extends RigidBody2D
 class_name Actor
 
 
-signal collided(at: Vector2)
+signal collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState2D)
 
 
 @export var bump_intensity: float = 280
@@ -32,7 +32,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	for i in state.get_contact_count():
 		var bump_normal: Vector2 = state.get_contact_local_normal(i)
 		state.apply_central_impulse(bump_normal * bump_intensity)
-		collided.emit(state.get_contact_collider_position(i))
+		var other_party: RigidBody2D = state.get_contact_collider_object(i)
+		var other_party_rid: RID = other_party.get_rid()
+		var other_party_state: PhysicsDirectBodyState2D = PhysicsServer2D.body_get_direct_state(other_party_rid)
+		collided.emit(state, other_party_state)
 
 		
 func die() -> void:
