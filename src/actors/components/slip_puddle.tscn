@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cwj4ibw16vuke"]
+
+[ext_resource type="Script" uid="uid://c0kp3hg4gn6xb" path="res://src/actors/components/slip_puddle.gd" id="1_l3bxm"]
+[ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle.svg" id="1_xxh1h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lwrwe"]
+radius = 4.0
+height = 16.0
+
+[node name="SlipPuddle" type="Area2D" unique_id=445941853]
+linear_damp_space_override = 3
+linear_damp = 0.0
+script = ExtResource("1_l3bxm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1656953523]
+modulate = Color(0.63909996, 0.6434633, 0.77, 1)
+scale = Vector2(1, 0.5)
+texture = ExtResource("1_xxh1h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=669960834]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_lwrwe")
+
+[node name="Timer" type="Timer" parent="." unique_id=112597932]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

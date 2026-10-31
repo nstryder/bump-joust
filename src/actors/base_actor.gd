@@ -30,6 +30,12 @@ func _ready() -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	debug_speed.text = "Speed: %.1f \n" % linear_velocity.length()
 
+	if not input_direction.is_zero_approx():
+		last_nonzero_direction = input_direction
+		if input_direction.x:
+			last_nonzero_x = input_direction.x
+		animation_tree["parameters/walk/BlendSpace2D/blend_position"] = last_nonzero_direction + Vector2(last_nonzero_x, 0)
+
 	
 	for i in state.get_contact_count():
 		var bump_normal: Vector2 = state.get_contact_local_normal(i)

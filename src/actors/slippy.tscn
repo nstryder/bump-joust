@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dw3pb2s2qtrpk"]
+
+[ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_qw11c"]
+[ext_resource type="Script" uid="uid://bp5m42t5sn2q8" path="res://src/actors/slippy.gd" id="2_bxejl"]
+
+[node name="Slippy" unique_id=500541823 instance=ExtResource("1_qw11c")]
+script = ExtResource("2_bxejl")
+acceleration = 1000.0
+_slip_accel = 2000.0
+_slip_duration = 0.6
+_slip_cooldown_duration = 1.0
+_slip_interval = 0.1
+
+[node name="Sprite2D" parent="." index="0" unique_id=170752210]
+modulate = Color(0, 0.6500001, 1, 1)
+
+[node name="AnimationTree" parent="." index="3" unique_id=1359491482]
+parameters/walk/BlendSpace2D/blend_position = Vector2(-0.9943081, 0.45859873)
+
+[node name="DEBUG_Speed" parent="." index="4" unique_id=1379351247]
+visible = true
+
+[node name="SlipTimer" type="Timer" parent="." index="7" unique_id=45795919]
+one_shot = true
+
+[node name="SlipCooldown" type="Timer" parent="." index="8" unique_id=1510451132]
+one_shot = true
+
+[node name="SlipIntervalTimer" type="Timer" parent="." index="9" unique_id=1391640668]
+
+[connection signal="timeout" from="SlipTimer" to="." method="_on_slip_timer_timeout"]
+[connection signal="timeout" from="SlipCooldown" to="." method="_on_slip_cooldown_timeout"]
+[connection signal="timeout" from="SlipIntervalTimer" to="." method="_on_slip_interval_timer_timeout"]

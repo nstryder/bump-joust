@@ -4,7 +4,7 @@ class_name ChargeActor
 # NOTES: 
 # Max speed is determined by accel / damp
 
-@export var acceleration: float = 2000
+@export var acceleration: float = 1000
 @export var charge_accel: float = 1000
 @export_range(0, 1) var charging_speed_modifier: float = 0.5
 @export var charge_force: float = 500
@@ -61,12 +61,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var final_acceleration: float = acceleration
 	if is_charging_pressed:
 		final_acceleration *= charging_speed_modifier
-	
-	if not input_direction.is_zero_approx():
-		last_nonzero_direction = input_direction
-		if input_direction.x:
-			last_nonzero_x = input_direction.x
-		animation_tree["parameters/walk/BlendSpace2D/blend_position"] = last_nonzero_direction + Vector2(last_nonzero_x, 0)
 
 	state.apply_central_force(input_direction * final_acceleration)
 	
