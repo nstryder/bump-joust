@@ -27,6 +27,13 @@ var is_charging_ready: bool = false
 @onready var charge_ready_vfx: AnimatedSprite2D = $ChargeReadyVfx
 
 
+func _ready() -> void:
+	super._ready()
+	charge_active_timer.wait_time = charge_active_time
+	charge_startup_timer.wait_time = charge_startup_time
+	charge_ready_vfx.animation_finished.connect(charge_ready_vfx.hide)
+
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_echo():
 		return
@@ -36,20 +43,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if event.is_action("ability"):
 		is_charging_pressed = event.is_pressed()
-		if event.is_pressed():
-			charge_startup_timer.start()
-			charge_press_sfx.play()
-			charge_vfx.play("startup")
-			charge_vfx.show()
 		is_charging_released = event.is_released()
 
-
-func _ready() -> void:
-	animation_playback.travel("walk")
-	charge_active_timer.wait_time = charge_active_time
-	charge_startup_timer.wait_time = charge_startup_time
-	charge_ready_vfx.animation_finished.connect(charge_ready_vfx.hide)
-	
 
 func _process(_delta: float) -> void:
 	var extra_speed_modifier: float = linear_velocity.length() / (acceleration / linear_damp)
@@ -64,6 +59,13 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	state.apply_central_force(input_direction * final_acceleration)
 	
+	if is_charging_pressed:
+		is_charging_pressed = false
+		charge_startup_timer.start()
+		charge_press_sfx.play()
+		charge_vfx.play("startup")
+		charge_vfx.show()
+
 	if is_charging_released:
 		is_charging_released = false
 		charge_vfx.hide()

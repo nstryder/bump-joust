@@ -6,19 +6,15 @@
 [node name="Slippy" unique_id=500541823 instance=ExtResource("1_qw11c")]
 script = ExtResource("2_bxejl")
 acceleration = 1000.0
-_slip_accel = 2000.0
 _slip_duration = 0.6
 _slip_cooldown_duration = 1.0
-_slip_interval = 0.1
+_slip_interval = 0.05
 
 [node name="Sprite2D" parent="." index="0" unique_id=170752210]
 modulate = Color(0, 0.6500001, 1, 1)
 
 [node name="AnimationTree" parent="." index="3" unique_id=1359491482]
 parameters/walk/BlendSpace2D/blend_position = Vector2(-0.9943081, 0.45859873)
-
-[node name="DEBUG_Speed" parent="." index="4" unique_id=1379351247]
-visible = true
 
 [node name="SlipTimer" type="Timer" parent="." index="7" unique_id=45795919]
 one_shot = true

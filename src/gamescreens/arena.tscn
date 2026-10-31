@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://digh4ob3iivj6" path="res://assets/audio/sfx/Punch__008.wav" id="8_ropfh"]
 [ext_resource type="PackedScene" uid="uid://bw5a4onwkgd1" path="res://src/actors/bouncy.tscn" id="9_5ospc"]
 [ext_resource type="AudioStream" uid="uid://b4brjmr8yx2t" path="res://assets/audio/sfx/Punch__010.wav" id="9_ojtwx"]
+[ext_resource type="PackedScene" uid="uid://devg3o5en8yjo" path="res://src/actors/chargey.tscn" id="10_0xsmf"]
+[ext_resource type="PackedScene" uid="uid://dw3pb2s2qtrpk" path="res://src/actors/slippy.tscn" id="11_ropfh"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b1nx7"]
 streams_count = 5
@@ -63,9 +65,17 @@ unique_name_in_owner = true
 y_sort_enabled = true
 
 [node name="BaseActor" parent="CenterPoint/Actors" unique_id=1504847358 instance=ExtResource("2_gaerr")]
-position = Vector2(92, 0)
+position = Vector2(176, -68)
 
 [node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("9_5ospc")]
+position = Vector2(-159, 73)
+
+[node name="Chargey" parent="CenterPoint/Actors" unique_id=1695772122 instance=ExtResource("10_0xsmf")]
+position = Vector2(-158, -69)
+
+[node name="Slippy" parent="CenterPoint/Actors" unique_id=63825484 instance=ExtResource("11_ropfh")]
+position = Vector2(177, 74)
+is_player = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)

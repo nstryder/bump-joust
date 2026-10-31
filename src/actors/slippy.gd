@@ -21,7 +21,7 @@ var _slip_state := SlipState.NONE
 
 
 func _ready() -> void:
-	animation_playback.travel("walk")
+	super._ready()
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

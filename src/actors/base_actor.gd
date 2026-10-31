@@ -8,6 +8,7 @@ signal collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState
 @export var bump_intensity: float = 280
 @export var sfx_death: AudioStream
 @export var hit_stop_duration: float = 0.1
+@export var is_player: bool = false
 
 
 var input_direction := Vector2.ZERO
@@ -24,6 +25,8 @@ var last_nonzero_x: float = 1.0
 
 
 func _ready() -> void:
+	if not is_player:
+		set_process_unhandled_key_input(false)
 	animation_playback.travel("walk")
 
 
