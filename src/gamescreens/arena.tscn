@@ -39,6 +39,14 @@ tile_set = ExtResource("1_o8c7h")
 [node name="CenterPoint" type="Marker2D" parent="." unique_id=745366920]
 position = Vector2(960, 540)
 
+[node name="ArenaMask" type="Polygon2D" parent="CenterPoint" unique_id=1601231267]
+unique_name_in_owner = true
+clip_children = 1
+polygon = PackedVector2Array(-252, -150, 252, -150, 252, 154, -252, 154)
+
+[node name="Shadows" type="Node2D" parent="CenterPoint/ArenaMask" unique_id=1822428175]
+unique_name_in_owner = true
+
 [node name="ArenaBounds" type="Area2D" parent="CenterPoint" unique_id=1339897630]
 linear_damp_space_override = 1
 linear_damp = 10.0

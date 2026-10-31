@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c4rbdewnrruy3"]
+
+[ext_resource type="Script" uid="uid://b85bmmpjs5i4f" path="res://src/actors/components/shadow.gd" id="1_kd66l"]
+[ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle.svg" id="1_tyd0q"]
+
+[node name="Shadow" type="Node2D" unique_id=1370283716]
+script = ExtResource("1_kd66l")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=74613956]
+modulate = Color(0, 0, 0, 0.29803923)
+scale = Vector2(1, 0.5)
+texture = ExtResource("1_tyd0q")
+offset = Vector2(0, 9)

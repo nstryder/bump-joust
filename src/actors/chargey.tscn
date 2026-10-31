@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_3e2b4"]
 [ext_resource type="Script" uid="uid://dag16dodjy8b5" path="res://src/actors/chargey.gd" id="1_kamsm"]
-[ext_resource type="Texture2D" uid="uid://c6hy5xymfxf4k" path="res://assets/gfx/sprites/6dir_3.png" id="2_kamsm"]
 [ext_resource type="Texture2D" uid="uid://bms0xeaw3b3b0" path="res://assets/vfx/fire.png" id="3_5mkqj"]
 [ext_resource type="Texture2D" uid="uid://do665mt3e50o6" path="res://assets/vfx/fastfire.png" id="3_vvkta"]
 [ext_resource type="AudioStream" uid="uid://c6fa4gpv3wwj0" path="res://assets/audio/sfx/Punch2__008.wav" id="4_hawlp"]
@@ -586,21 +585,20 @@ charge_startup_time = 1.0
 [node name="ChargeVfx" type="AnimatedSprite2D" parent="." index="0" unique_id=1050096934]
 visible = false
 material = SubResource("CanvasItemMaterial_vvkta")
-position = Vector2(0, -2)
+position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_lwrwe")
 animation = &"startup"
-frame_progress = 0.9668064
 
 [node name="ChargeReadyVfx" type="AnimatedSprite2D" parent="." index="1" unique_id=505678146]
 visible = false
-position = Vector2(-3, -2)
+position = Vector2(-3, -11)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_vvkta")
 frame = 8
 frame_progress = 1.0
 
 [node name="Sprite2D" parent="." index="2" unique_id=170752210]
-texture = ExtResource("2_kamsm")
+modulate = Color(1, 0, 0, 1)
 
 [node name="BigBumpSfx" type="AudioStreamPlayer2D" parent="." index="8" unique_id=1497532884]
 stream = ExtResource("4_hawlp")

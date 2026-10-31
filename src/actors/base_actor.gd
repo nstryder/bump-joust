@@ -19,6 +19,8 @@ var last_nonzero_x: float = 1.0
 @onready var animation_playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 @onready var debug_speed: Label = $DEBUG_Speed
 @onready var bump_sfx: AudioStreamPlayer2D = $BumpSfx
+@onready var shadow_remote: RemoteTransform2D = $ShadowRemote
+@onready var shadow: Shadow
 
 
 func _ready() -> void:
@@ -43,4 +45,6 @@ func die() -> void:
 	explosion.global_position = global_position
 	get_tree().root.add_child(explosion)
 	Audio.play_2d(sfx_death, global_position)
+	if shadow:
+		shadow.queue_free()
 	queue_free()

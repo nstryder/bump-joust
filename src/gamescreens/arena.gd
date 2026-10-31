@@ -11,12 +11,16 @@ var collided_this_frame: bool = false
 var tween: Tween
 
 @onready var actors: Node2D = %Actors
+@onready var arena_mask: Polygon2D = %ArenaMask
+@onready var shadows: Node2D = %Shadows
 
 
 func _ready() -> void:
 	for actor: Actor in actors.get_children():
 		actor.collided.connect(_on_actor_collided)
-
+		var shadow: Shadow = spawn_shadow(actor.shadow_remote)
+		actor.shadow = shadow
+		
 
 func do_hitstop(duration: float) -> void:
 	if tween:
@@ -29,6 +33,14 @@ func do_hitstop(duration: float) -> void:
 	tween.tween_method(_interpolate_hitstop, 0, 1, duration)
 
 
+func spawn_shadow(remote_transform: RemoteTransform2D) -> Shadow:
+	var shadow := Shadow.construct()
+	shadows.add_child(shadow)
+	var path_to: NodePath = remote_transform.get_path_to(shadow)
+	remote_transform.remote_path = path_to
+	return shadow
+	
+	
 func reset_collide_flag() -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
@@ -62,7 +74,6 @@ func _on_actor_collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectB
 		var highest_speed: float = maxf(speed1, speed2)
 		var hitstop_time: float = highest_speed / hitstop_resistance
 
-		print("%.2f" % hitstop_time)
 		do_hitstop(hitstop_time)
 	
 
