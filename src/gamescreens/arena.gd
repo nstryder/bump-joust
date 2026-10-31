@@ -3,8 +3,8 @@ extends Node2D
 @export var bump_sfx: AudioStream
 @export var hitstop_curve: Curve
 
-## Proportional to how much hitstop should occur. Needed since we set hitstop dynamically.
-@export var hitstop_resistance: float = 2000
+## Inversely proportional to how much hitstop should occur. Needed since we set hitstop dynamically.
+@export var hitstop_resistance: float = 1500
 
 var collided_this_frame: bool = false
 
@@ -74,6 +74,7 @@ func _on_actor_collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectB
 		var highest_speed: float = maxf(speed1, speed2)
 		var hitstop_time: float = highest_speed / hitstop_resistance
 
+		print("%.3f" % hitstop_time)
 		do_hitstop(hitstop_time)
 	
 

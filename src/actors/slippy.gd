@@ -3,7 +3,7 @@ class_name SlipActor
 
 enum SlipState {
 	NONE,
-	USING,
+	ACTIVE,
 	COOLDOWN
 }
 
@@ -41,7 +41,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	if _is_ability_pressed and _slip_state == SlipState.NONE:
 		_is_ability_pressed = false
-		_slip_state = SlipState.USING
+		_slip_state = SlipState.ACTIVE
 		_slip_timer.start(_slip_duration)
 		_slip_interval_timer.start(_slip_interval)
 			

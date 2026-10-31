@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bw5a4onwkgd1"]
+
+[ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_v7w1x"]
+[ext_resource type="Script" uid="uid://fpiu6i3mtl4q" path="res://src/actors/bouncy.gd" id="2_bqlqi"]
+
+[sub_resource type="Curve" id="Curve_bqlqi"]
+_data = [Vector2(0, 0), 0.0, 5.0, 0, 0, Vector2(0.49957883, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Bouncy" unique_id=500541823 instance=ExtResource("1_v7w1x")]
+script = ExtResource("2_bqlqi")
+acceleration = 600.0
+bounce_accel = 2000.0
+bounce_trajectory = SubResource("Curve_bqlqi")
+bounce_height = 48.0
+bounce_active_duration = 0.6
+bounce_cooldown = 0.2
+
+[node name="Sprite2D" parent="." index="0" unique_id=170752210]
+modulate = Color(0.116666794, 1, 0, 1)
+
+[node name="BounceCooldownTimer" type="Timer" parent="." index="7" unique_id=1326797947]
+one_shot = true
+
+[connection signal="timeout" from="BounceCooldownTimer" to="." method="_on_bounce_cooldown_timer_timeout"]

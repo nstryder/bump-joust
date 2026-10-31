@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b2torbiqiacen"]
+
+[ext_resource type="Script" uid="uid://b48cwia8cprl3" path="res://src/actors/components/landing_force.gd" id="1_y5rw2"]
+[ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle.svg" id="2_4t6dw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwrwe"]
+radius = 32.0
+
+[node name="LandingForce" type="Area2D" unique_id=704858135]
+monitorable = false
+script = ExtResource("1_y5rw2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1682426946]
+shape = SubResource("CircleShape2D_lwrwe")
+
+[node name="Circle" type="Sprite2D" parent="." unique_id=1135610824]
+scale = Vector2(4, 4)
+texture = ExtResource("2_4t6dw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

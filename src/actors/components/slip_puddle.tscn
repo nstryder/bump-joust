@@ -8,6 +8,7 @@ radius = 4.0
 height = 16.0
 
 [node name="SlipPuddle" type="Area2D" unique_id=445941853]
+collision_layer = 0
 linear_damp_space_override = 3
 linear_damp = 0.0
 script = ExtResource("1_l3bxm")

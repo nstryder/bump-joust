@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bfxdb04dx3rn5" path="res://src/gamescreens/arena.gd" id="1_gaerr"]
 [ext_resource type="TileSet" uid="uid://cm5vyswjcicxs" path="res://assets/gfx/tilesets/stone_floor.tres" id="1_o8c7h"]
 [ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="2_gaerr"]
-[ext_resource type="PackedScene" uid="uid://devg3o5en8yjo" path="res://src/actors/chargey.tscn" id="3_ey3tt"]
 [ext_resource type="AudioStream" uid="uid://bfji0ckl8g780" path="res://assets/audio/sfx/Punch__001.wav" id="5_5ospc"]
 [ext_resource type="AudioStream" uid="uid://boqaw2hn4xccv" path="res://assets/audio/sfx/Punch__002.wav" id="6_ywmkn"]
 [ext_resource type="AudioStream" uid="uid://74t76nfh7mx7" path="res://assets/audio/sfx/Punch__004.wav" id="7_0xsmf"]
 [ext_resource type="AudioStream" uid="uid://digh4ob3iivj6" path="res://assets/audio/sfx/Punch__008.wav" id="8_ropfh"]
+[ext_resource type="PackedScene" uid="uid://bw5a4onwkgd1" path="res://src/actors/bouncy.tscn" id="9_5ospc"]
 [ext_resource type="AudioStream" uid="uid://b4brjmr8yx2t" path="res://assets/audio/sfx/Punch__010.wav" id="9_ojtwx"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b1nx7"]
@@ -48,6 +48,9 @@ polygon = PackedVector2Array(-252, -150, 252, -150, 252, 154, -252, 154)
 unique_name_in_owner = true
 
 [node name="ArenaBounds" type="Area2D" parent="CenterPoint" unique_id=1339897630]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
 linear_damp_space_override = 1
 linear_damp = 10.0
 
@@ -62,7 +65,7 @@ y_sort_enabled = true
 [node name="BaseActor" parent="CenterPoint/Actors" unique_id=1504847358 instance=ExtResource("2_gaerr")]
 position = Vector2(92, 0)
 
-[node name="Chargey" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("3_ey3tt")]
+[node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("9_5ospc")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)
