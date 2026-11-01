@@ -21,8 +21,8 @@ stream_3/stream = ExtResource("8_ropfh")
 stream_4/stream = ExtResource("9_ojtwx")
 
 [sub_resource type="Curve" id="Curve_5ospc"]
-_limits = [0.01, 1.0, 0.0, 1.0]
-_data = [Vector2(0, 0.01), 0.0, 0.99000007, 0, 1, Vector2(1, 1), 0.99000007, 0.0, 1, 0]
+_limits = [0.05, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0.05), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.557394, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwrwe"]

@@ -6,11 +6,12 @@ class_name ChargeActor
 
 @export var acceleration: float = 1000
 @export var charge_accel: float = 1000
-@export_range(0, 1) var charging_speed_modifier: float = 0.5
+@export_range(0, 1) var charging_speed_modifier: float = 0.01
 @export var charge_force: float = 500
 @export var charge_active_time: float = 0.2
 @export var charge_startup_time: float = 1.0
 
+var is_charging_just_pressed: bool = false
 var is_charging_pressed: bool = false
 var is_charging_released: bool = false
 
@@ -43,6 +44,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if event.is_action("ability"):
 		is_charging_pressed = event.is_pressed()
+		is_charging_just_pressed = event.is_pressed()
 		is_charging_released = event.is_released()
 
 
@@ -59,8 +61,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	state.apply_central_force(input_direction * final_acceleration)
 	
-	if is_charging_pressed:
-		is_charging_pressed = false
+	if is_charging_just_pressed:
+		is_charging_just_pressed = false
 		charge_startup_timer.start()
 		charge_press_sfx.play()
 		charge_vfx.play("startup")
@@ -79,12 +81,14 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			charge_startup_timer.stop()
 	
 	
+func collide(state: PhysicsDirectBodyState2D) -> void:
+	super.collide(state)
 	for i in state.get_contact_count():
 		if not is_charging_active:
 			break
 		var bumpee: RigidBody2D = state.get_contact_collider_object(i)
-		var bump_normal: Vector2 = - state.get_contact_local_normal(i)
-		bumpee.apply_central_impulse(bump_normal * charge_force)
+		var bump_normal: Vector2 = state.get_contact_local_normal(i)
+		bumpee.apply_central_impulse(-bump_normal * charge_force)
 		big_bump_sfx.play()
 		print("Big bump!")
 

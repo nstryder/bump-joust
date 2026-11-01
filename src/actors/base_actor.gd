@@ -4,8 +4,7 @@ class_name Actor
 
 signal collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState2D)
 
-
-@export var bump_intensity: float = 280
+@export var recoil_intensity: float = 1.5
 @export var sfx_death: AudioStream
 @export var hit_stop_duration: float = 0.1
 @export var is_player: bool = false
@@ -31,7 +30,7 @@ func _ready() -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	debug_speed.text = "Speed: %.1f \n" % linear_velocity.length()
+	debug_speed.text = "%.0f \n" % (linear_velocity.length() / 10)
 
 	if not input_direction.is_zero_approx():
 		last_nonzero_direction = input_direction
@@ -39,16 +38,17 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			last_nonzero_x = input_direction.x
 		animation_tree["parameters/walk/BlendSpace2D/blend_position"] = last_nonzero_direction + Vector2(last_nonzero_x, 0)
 
-	
+	collide(state)
+
+
+func collide(state: PhysicsDirectBodyState2D) -> void:
 	for i in state.get_contact_count():
-		var bump_normal: Vector2 = state.get_contact_local_normal(i)
-		state.apply_central_impulse(bump_normal * bump_intensity)
-		var other_party: RigidBody2D = state.get_contact_collider_object(i)
+		var other_party: Actor = state.get_contact_collider_object(i)
 		var other_party_rid: RID = other_party.get_rid()
 		var other_party_state: PhysicsDirectBodyState2D = PhysicsServer2D.body_get_direct_state(other_party_rid)
-		collided.emit(state, other_party_state)
+		collided.emit(self, state, other_party, other_party_state)
 
-		
+
 func die() -> void:
 	var explosion := Explosion.construct()
 	explosion.global_position = global_position

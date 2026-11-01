@@ -4,18 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle.svg" id="1_xxh1h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lwrwe"]
-radius = 4.0
-height = 16.0
+radius = 8.0
+height = 32.0
 
 [node name="SlipPuddle" type="Area2D" unique_id=445941853]
 collision_layer = 0
+monitorable = false
 linear_damp_space_override = 3
-linear_damp = 0.0
+linear_damp = 2.0
 script = ExtResource("1_l3bxm")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1656953523]
 modulate = Color(0.63909996, 0.6434633, 0.77, 1)
-scale = Vector2(1, 0.5)
+scale = Vector2(2, 1)
 texture = ExtResource("1_xxh1h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=669960834]

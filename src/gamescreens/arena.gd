@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var bump_sfx: AudioStream
+@export var bump_intensity: float = 2.0
 @export var hitstop_curve: Curve
 
 ## Inversely proportional to how much hitstop should occur. Needed since we set hitstop dynamically.
@@ -16,6 +17,7 @@ var tween: Tween
 
 
 func _ready() -> void:
+	EventBus.hitstop_requested.connect(do_hitstop)
 	for actor: Actor in actors.get_children():
 		actor.collided.connect(_on_actor_collided)
 		var shadow: Shadow = spawn_shadow(actor.shadow_remote)
@@ -51,13 +53,26 @@ func _interpolate_hitstop(curve_x: float) -> void:
 	Engine.time_scale = hitstop_curve.sample_baked(curve_x)
 
 
-func _on_actor_collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState2D) -> void:
+func _on_actor_collided(actor1: Actor, state1: PhysicsDirectBodyState2D, actor2: Actor, state2: PhysicsDirectBodyState2D) -> void:
 	if collided_this_frame:
 		return
 	collided_this_frame = true
 	reset_collide_flag()
 	for i in state1.get_contact_count():
 		var collided_at: Vector2 = state1.get_contact_collider_position(i)
+
+		# Determine max speed for various calculations
+		var speed1: float = state1.get_contact_local_velocity_at_position(i).length()
+		var speed2: float = state2.get_contact_local_velocity_at_position(i).length()
+		var highest_speed: float = maxf(speed1, speed2)
+
+		# Apply mutual bump force
+		var final_bump_intensity: float = bump_intensity * highest_speed
+		print(final_bump_intensity)
+		var bump_normal1: Vector2 = state1.get_contact_local_normal(i)
+		var bump_normal2: Vector2 = state2.get_contact_local_normal(i)
+		state1.apply_central_impulse(bump_normal1 * final_bump_intensity * actor1.recoil_intensity)
+		state2.apply_central_impulse(bump_normal2 * final_bump_intensity * actor2.recoil_intensity)
 		
 		# Play sfx
 		Audio.play_2d(bump_sfx, collided_at)
@@ -69,12 +84,9 @@ func _on_actor_collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectB
 		bump_vfx.emitting = true
 
 		# Determine hitstop based on intensity of collision
-		var speed1: float = state1.get_contact_local_velocity_at_position(i).length()
-		var speed2: float = state2.get_contact_local_velocity_at_position(i).length()
-		var highest_speed: float = maxf(speed1, speed2)
 		var hitstop_time: float = highest_speed / hitstop_resistance
 
-		print("%.3f" % hitstop_time)
+		# print("%.3f" % hitstop_time)
 		do_hitstop(hitstop_time)
 	
 

@@ -8,7 +8,8 @@ enum SlipState {
 }
 
 @export var acceleration: float = 1000
-@export var _slip_duration: float = 0.6
+@export var slip_accel: float = 2000
+@export var _slip_duration: float = 1.0
 @export var _slip_cooldown_duration: float = 1.0
 @export var _slip_interval: float = 0.1
 
@@ -44,6 +45,9 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		_slip_state = SlipState.ACTIVE
 		_slip_timer.start(_slip_duration)
 		_slip_interval_timer.start(_slip_interval)
+	
+	if _slip_state == SlipState.ACTIVE:
+		final_acceleration = slip_accel
 			
 	state.apply_central_force(input_direction * final_acceleration)
 

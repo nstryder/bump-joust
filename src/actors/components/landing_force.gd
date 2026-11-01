@@ -1,7 +1,6 @@
 extends Area2D
 class_name LandingForce
 
-
 @export var pushing_force: float = 1000
 
 var _user: Actor
@@ -28,3 +27,4 @@ func _on_body_entered(body: Node2D) -> void:
 	var rigid_body: RigidBody2D = body
 	var pushing_direction: Vector2 = global_position.direction_to(rigid_body.global_position)
 	rigid_body.apply_central_impulse(pushing_direction * pushing_force)
+	EventBus.hitstop_requested.emit(0.3)

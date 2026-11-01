@@ -6,9 +6,11 @@
 [node name="Slippy" unique_id=500541823 instance=ExtResource("1_qw11c")]
 script = ExtResource("2_bxejl")
 acceleration = 1000.0
-_slip_duration = 0.6
+slip_accel = 1000.0
+_slip_duration = 1.0
 _slip_cooldown_duration = 1.0
-_slip_interval = 0.05
+_slip_interval = 0.017
+recoil_intensity = 0.5
 
 [node name="Sprite2D" parent="." index="0" unique_id=170752210]
 modulate = Color(0, 0.6500001, 1, 1)
