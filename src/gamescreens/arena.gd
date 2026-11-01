@@ -2,6 +2,7 @@ extends Node2D
 
 @export var bump_sfx: AudioStream
 @export var bump_intensity: float = 2.0
+@export var bump_min_intensity: float = 400
 @export var hitstop_curve: Curve
 
 ## Inversely proportional to how much hitstop should occur. Needed since we set hitstop dynamically.
@@ -69,6 +70,7 @@ func _on_actor_collided(actor1: Actor, state1: PhysicsDirectBodyState2D, actor2:
 		# Apply mutual bump force
 		var final_bump_intensity: float = bump_intensity * highest_speed
 		print(final_bump_intensity)
+		final_bump_intensity = maxf(final_bump_intensity, bump_min_intensity)
 		var bump_normal1: Vector2 = state1.get_contact_local_normal(i)
 		var bump_normal2: Vector2 = state2.get_contact_local_normal(i)
 		state1.apply_central_impulse(bump_normal1 * final_bump_intensity * actor1.recoil_intensity)
