@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dmlvnkc07qd1k"]
+
+[ext_resource type="PackedScene" uid="uid://cq0hqnpjgy68" path="res://src/actors/cpu_controllers/base_cpu_control.tscn" id="1_77cxd"]
+[ext_resource type="Script" uid="uid://dksrj5nhcbhnp" path="res://src/actors/cpu_controllers/charge_cpu_control.gd" id="2_34a4e"]
+
+[node name="ChargeCpuControl" unique_id=1650306333 instance=ExtResource("1_77cxd")]
+script = ExtResource("2_34a4e")
+charge_interval = 4.0
+
+[node name="ChargeAttackInterval" type="Timer" parent="." index="0" unique_id=1830544755]
+autostart = true
+
+[node name="ChargeDuration" type="Timer" parent="." index="1" unique_id=803953041]
+one_shot = true
+
+[connection signal="timeout" from="ChargeAttackInterval" to="." method="_on_charge_attack_interval_timeout"]
+[connection signal="timeout" from="ChargeDuration" to="." method="_on_charge_duration_timeout"]

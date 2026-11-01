@@ -8,7 +8,6 @@
 [ext_resource type="AudioStream" uid="uid://74t76nfh7mx7" path="res://assets/audio/sfx/Punch__004.wav" id="5_2nhll"]
 [ext_resource type="AudioStream" uid="uid://digh4ob3iivj6" path="res://assets/audio/sfx/Punch__008.wav" id="6_4fki7"]
 [ext_resource type="AudioStream" uid="uid://b4brjmr8yx2t" path="res://assets/audio/sfx/Punch__010.wav" id="7_16xmt"]
-[ext_resource type="PackedScene" uid="uid://cq0hqnpjgy68" path="res://src/actors/cpu_controllers/base_cpu_control.tscn" id="9_4fki7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iakeo"]
 radius = 6.0
@@ -347,5 +346,3 @@ bus = &"SFX"
 [node name="ShadowRemote" type="RemoteTransform2D" parent="." unique_id=999336809]
 update_rotation = false
 update_scale = false
-
-[node name="BaseCpuControl" parent="." unique_id=1650306333 instance=ExtResource("9_4fki7")]

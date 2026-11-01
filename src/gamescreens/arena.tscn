@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bfxdb04dx3rn5" path="res://src/gamescreens/arena.gd" id="1_gaerr"]
 [ext_resource type="TileSet" uid="uid://cm5vyswjcicxs" path="res://assets/gfx/tilesets/stone_floor.tres" id="1_o8c7h"]
-[ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="2_gaerr"]
 [ext_resource type="AudioStream" uid="uid://bfji0ckl8g780" path="res://assets/audio/sfx/Punch__001.wav" id="5_5ospc"]
 [ext_resource type="AudioStream" uid="uid://boqaw2hn4xccv" path="res://assets/audio/sfx/Punch__002.wav" id="6_ywmkn"]
 [ext_resource type="AudioStream" uid="uid://74t76nfh7mx7" path="res://assets/audio/sfx/Punch__004.wav" id="7_0xsmf"]
@@ -64,10 +63,11 @@ shape = SubResource("RectangleShape2D_lwrwe")
 unique_name_in_owner = true
 y_sort_enabled = true
 
-[node name="BaseActor" parent="CenterPoint/Actors" unique_id=1504847358 instance=ExtResource("2_gaerr")]
+[node name="Chargey2" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("10_0xsmf")]
 position = Vector2(176, -68)
+controller = 1
 
-[node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("9_5ospc")]
+[node name="Bouncy" parent="CenterPoint/Actors" unique_id=698045246 instance=ExtResource("9_5ospc")]
 position = Vector2(-159, 73)
 controller = 2
 
@@ -77,7 +77,7 @@ controller = 2
 
 [node name="Slippy" parent="CenterPoint/Actors" unique_id=63825484 instance=ExtResource("11_ropfh")]
 position = Vector2(177, 74)
-controller = 1
+controller = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_qw11c"]
 [ext_resource type="Script" uid="uid://bp5m42t5sn2q8" path="res://src/actors/slippy.gd" id="2_bxejl"]
+[ext_resource type="PackedScene" uid="uid://d3h64ysmpw76a" path="res://src/actors/cpu_controllers/slippy_cpu_control.tscn" id="3_al7he"]
 
 [node name="Slippy" unique_id=500541823 instance=ExtResource("1_qw11c")]
 script = ExtResource("2_bxejl")
@@ -25,6 +26,8 @@ one_shot = true
 one_shot = true
 
 [node name="SlipIntervalTimer" type="Timer" parent="." index="9" unique_id=1391640668]
+
+[node name="SlippyCpuControl" parent="." index="10" unique_id=1650306333 instance=ExtResource("3_al7he")]
 
 [connection signal="timeout" from="SlipTimer" to="." method="_on_slip_timer_timeout"]
 [connection signal="timeout" from="SlipCooldown" to="." method="_on_slip_cooldown_timeout"]

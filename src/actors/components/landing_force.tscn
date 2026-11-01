@@ -7,6 +7,7 @@
 radius = 32.0
 
 [node name="LandingForce" type="Area2D" unique_id=704858135]
+physics_interpolation_mode = 2
 monitorable = false
 script = ExtResource("1_y5rw2")
 

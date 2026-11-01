@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d3h64ysmpw76a"]
+
+[ext_resource type="PackedScene" uid="uid://cq0hqnpjgy68" path="res://src/actors/cpu_controllers/base_cpu_control.tscn" id="1_budgd"]
+[ext_resource type="Script" uid="uid://chdoejdbfdbc5" path="res://src/actors/cpu_controllers/slippy_cpu_control.gd" id="2_qjc8y"]
+
+[node name="SlippyCpuControl" unique_id=1650306333 instance=ExtResource("1_budgd")]
+script = ExtResource("2_qjc8y")

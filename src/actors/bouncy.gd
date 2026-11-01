@@ -16,7 +16,13 @@ enum BounceState {
 
 
 var _is_ability_pressed: bool = false
-var _bounce_state := BounceState.NONE
+
+signal bounce_state_changed(value: BounceState)
+var _bounce_state := BounceState.NONE:
+	set(value):
+		_bounce_state = value
+		bounce_state_changed.emit(value)
+
 var _tween: Tween
 
 @onready var sprite: Sprite2D = $Sprite2D

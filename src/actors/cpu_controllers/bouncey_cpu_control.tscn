@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cqk7orms586us"]
+
+[ext_resource type="PackedScene" uid="uid://cq0hqnpjgy68" path="res://src/actors/cpu_controllers/base_cpu_control.tscn" id="1_vulig"]
+[ext_resource type="Script" uid="uid://crw2hntjixact" path="res://src/actors/cpu_controllers/bouncey_cpu_control.gd" id="2_mimeb"]
+
+[node name="BounceyCpuControl" unique_id=1650306333 instance=ExtResource("1_vulig")]
+script = ExtResource("2_mimeb")
