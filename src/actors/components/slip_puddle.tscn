@@ -8,6 +8,7 @@ radius = 8.0
 height = 32.0
 
 [node name="SlipPuddle" type="Area2D" unique_id=445941853]
+physics_interpolation_mode = 2
 collision_layer = 0
 monitorable = false
 linear_damp_space_override = 3

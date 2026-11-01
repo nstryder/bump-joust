@@ -80,5 +80,6 @@ is_player = true
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)
 zoom = Vector2(3, 3)
+process_callback = 0
 
 [connection signal="body_exited" from="CenterPoint/ArenaBounds" to="." method="_on_arena_bounds_body_exited"]

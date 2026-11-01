@@ -72,6 +72,7 @@ ability={
 
 3d/physics_engine="Jolt Physics"
 2d/default_linear_damp=0.0
+common/physics_interpolation=true
 
 [rendering]
 
