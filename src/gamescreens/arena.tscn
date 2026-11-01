@@ -69,13 +69,15 @@ position = Vector2(176, -68)
 
 [node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("9_5ospc")]
 position = Vector2(-159, 73)
+controller = 2
 
 [node name="Chargey" parent="CenterPoint/Actors" unique_id=1695772122 instance=ExtResource("10_0xsmf")]
 position = Vector2(-158, -69)
+controller = 2
 
 [node name="Slippy" parent="CenterPoint/Actors" unique_id=63825484 instance=ExtResource("11_ropfh")]
 position = Vector2(177, 74)
-is_player = true
+controller = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)

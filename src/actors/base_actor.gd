@@ -2,12 +2,19 @@ extends RigidBody2D
 class_name Actor
 
 
+enum Controller {
+	NONE,
+	PLAYER,
+	CPU
+}
+
+
 signal collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState2D)
 
 @export var recoil_intensity: float = 1.5
 @export var sfx_death: AudioStream
 @export var hit_stop_duration: float = 0.1
-@export var is_player: bool = false
+@export var controller := Controller.NONE
 
 
 var input_direction := Vector2.ZERO
@@ -24,7 +31,7 @@ var last_nonzero_x: float = 1.0
 
 
 func _ready() -> void:
-	if not is_player:
+	if not controller == Controller.PLAYER:
 		set_process_unhandled_key_input(false)
 	animation_playback.travel("walk")
 
