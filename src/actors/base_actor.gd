@@ -11,7 +11,8 @@ enum Controller {
 
 signal collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState2D)
 
-@export var recoil_intensity: float = 1.5
+@export var knockback_give_modifier: float = 1.0
+@export var knockback_take_modifier: float = 1.0
 @export var sfx_death: AudioStream
 @export var hit_stop_duration: float = 0.1
 @export var controller := Controller.NONE

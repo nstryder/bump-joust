@@ -1,15 +1,14 @@
-[gd_scene format=4 uid="uid://bm6bbakmfe0yg"]
+[gd_scene format=3 uid="uid://bm6bbakmfe0yg"]
 
 [ext_resource type="Script" uid="uid://bfxdb04dx3rn5" path="res://src/gamescreens/arena.gd" id="1_gaerr"]
-[ext_resource type="TileSet" uid="uid://cm5vyswjcicxs" path="res://assets/gfx/tilesets/stone_floor.tres" id="1_o8c7h"]
 [ext_resource type="AudioStream" uid="uid://bfji0ckl8g780" path="res://assets/audio/sfx/Punch__001.wav" id="5_5ospc"]
 [ext_resource type="AudioStream" uid="uid://boqaw2hn4xccv" path="res://assets/audio/sfx/Punch__002.wav" id="6_ywmkn"]
 [ext_resource type="AudioStream" uid="uid://74t76nfh7mx7" path="res://assets/audio/sfx/Punch__004.wav" id="7_0xsmf"]
+[ext_resource type="PackedScene" uid="uid://bef3l60jptb1v" path="res://src/gamescreens/stages/base_stage.tscn" id="7_eck33"]
+[ext_resource type="PackedScene" uid="uid://devg3o5en8yjo" path="res://src/actors/chargey.tscn" id="8_kygoh"]
 [ext_resource type="AudioStream" uid="uid://digh4ob3iivj6" path="res://assets/audio/sfx/Punch__008.wav" id="8_ropfh"]
-[ext_resource type="PackedScene" uid="uid://bw5a4onwkgd1" path="res://src/actors/bouncy.tscn" id="9_5ospc"]
+[ext_resource type="PackedScene" uid="uid://muqjawucajfp" path="res://src/actors/modifier_items/chargey_items/charge_rocket_wheelies.tscn" id="9_5ospc"]
 [ext_resource type="AudioStream" uid="uid://b4brjmr8yx2t" path="res://assets/audio/sfx/Punch__010.wav" id="9_ojtwx"]
-[ext_resource type="PackedScene" uid="uid://devg3o5en8yjo" path="res://src/actors/chargey.tscn" id="10_0xsmf"]
-[ext_resource type="PackedScene" uid="uid://dw3pb2s2qtrpk" path="res://src/actors/slippy.tscn" id="11_ropfh"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b1nx7"]
 streams_count = 5
@@ -24,64 +23,35 @@ _limits = [0.05, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 0.05), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.557394, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwrwe"]
-size = Vector2(507, 303)
-
-[node name="Arena" type="Node2D" unique_id=1490462069]
+[node name="BaseArena" type="Node2D" unique_id=1490462069]
 y_sort_enabled = true
 script = ExtResource("1_gaerr")
 bump_sfx = SubResource("AudioStreamRandomizer_b1nx7")
 hitstop_curve = SubResource("Curve_5ospc")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=932576582]
-tile_map_data = PackedByteArray("AAAlABUAAQACAAIAAAAlABQAAQACAAEAAAAlABMAAQACAAEAAAAlABIAAQACAAEAAAAlABEAAQACAAEAAAAlABAAAQACAAEAAAAlAA8AAQACAAEAAAAlAA4AAQACAAEAAAAlAA0AAQACAAEAAAAlAAwAAQACAAAAAAAkABUAAQABAAIAAAAkABQAAQABAAEAAAAkABMAAQABAAEAAAAkABIAAQABAAEAAAAkABEAAQABAAEAAAAkABAAAQABAAEAAAAkAA8AAQABAAEAAAAkAA4AAQABAAEAAAAkAA0AAQABAAEAAAAkAAwAAQABAAAAAAAjABUAAQABAAIAAAAjABQAAQABAAEAAAAjABMAAQABAAEAAAAjABIAAQABAAEAAAAjABEAAQABAAEAAAAjABAAAQABAAEAAAAjAA8AAQABAAEAAAAjAA4AAQABAAEAAAAjAA0AAQABAAEAAAAjAAwAAQABAAAAAAAiABUAAQABAAIAAAAiABQAAQABAAEAAAAiABMAAQABAAEAAAAiABIAAQABAAEAAAAiABEAAQABAAEAAAAiABAAAQABAAEAAAAiAA8AAQABAAEAAAAiAA4AAQABAAEAAAAiAA0AAQABAAEAAAAiAAwAAQABAAAAAAAhABUAAQABAAIAAAAhABQAAQABAAEAAAAhABMAAQABAAEAAAAhABIAAQABAAEAAAAhABEAAQABAAEAAAAhABAAAQABAAEAAAAhAA8AAQABAAEAAAAhAA4AAQABAAEAAAAhAA0AAQABAAEAAAAhAAwAAQABAAAAAAAgABUAAQABAAIAAAAgABQAAQABAAEAAAAgABMAAQABAAEAAAAgABIAAQABAAEAAAAgABEAAQABAAEAAAAgABAAAQABAAEAAAAgAA8AAQABAAEAAAAgAA4AAQABAAEAAAAgAA0AAQABAAEAAAAgAAwAAQABAAAAAAAfABUAAQABAAIAAAAfABQAAQABAAEAAAAfABMAAQABAAEAAAAfABIAAQABAAEAAAAfABEAAQABAAEAAAAfABAAAQABAAEAAAAfAA8AAQABAAEAAAAfAA4AAQABAAEAAAAfAA0AAQABAAEAAAAfAAwAAQABAAAAAAAeABUAAQABAAIAAAAeABQAAQABAAEAAAAeABMAAQABAAEAAAAeABIAAQABAAEAAAAeABEAAQABAAEAAAAeABAAAQABAAEAAAAeAA8AAQABAAEAAAAeAA4AAQABAAEAAAAeAA0AAQABAAEAAAAeAAwAAQABAAAAAAAdABUAAQABAAIAAAAdABQAAQABAAEAAAAdABMAAQABAAEAAAAdABIAAQABAAEAAAAdABEAAQABAAEAAAAdABAAAQABAAEAAAAdAA8AAQABAAEAAAAdAA4AAQABAAEAAAAdAA0AAQABAAEAAAAdAAwAAQABAAAAAAAcABUAAQABAAIAAAAcABQAAQABAAEAAAAcABMAAQABAAEAAAAcABIAAQABAAEAAAAcABEAAQABAAEAAAAcABAAAQABAAEAAAAcAA8AAQABAAEAAAAcAA4AAQABAAEAAAAcAA0AAQABAAEAAAAcAAwAAQABAAAAAAAbABUAAQABAAIAAAAbABQAAQABAAEAAAAbABMAAQABAAEAAAAbABIAAQABAAEAAAAbABEAAQABAAEAAAAbABAAAQABAAEAAAAbAA8AAQABAAEAAAAbAA4AAQABAAEAAAAbAA0AAQABAAEAAAAbAAwAAQABAAAAAAAaABUAAQABAAIAAAAaABQAAQABAAEAAAAaABMAAQABAAEAAAAaABIAAQABAAEAAAAaABEAAQABAAEAAAAaABAAAQABAAEAAAAaAA8AAQABAAEAAAAaAA4AAQABAAEAAAAaAA0AAQABAAEAAAAaAAwAAQABAAAAAAAZABUAAQABAAIAAAAZABQAAQABAAEAAAAZABMAAQABAAEAAAAZABIAAQABAAEAAAAZABEAAQABAAEAAAAZABAAAQABAAEAAAAZAA8AAQABAAEAAAAZAA4AAQABAAEAAAAZAA0AAQABAAEAAAAZAAwAAQABAAAAAAAYABUAAQABAAIAAAAYABQAAQABAAEAAAAYABMAAQABAAEAAAAYABIAAQABAAEAAAAYABEAAQABAAEAAAAYABAAAQABAAEAAAAYAA8AAQABAAEAAAAYAA4AAQABAAEAAAAYAA0AAQABAAEAAAAYAAwAAQABAAAAAAAXABUAAQABAAIAAAAXABQAAQABAAEAAAAXABMAAQABAAEAAAAXABIAAQABAAEAAAAXABEAAQABAAEAAAAXABAAAQABAAEAAAAXAA8AAQABAAEAAAAXAA4AAQABAAEAAAAXAA0AAQABAAEAAAAXAAwAAQABAAAAAAAWABUAAQAAAAIAAAAWABQAAQAAAAEAAAAWABMAAQAAAAEAAAAWABIAAQAAAAEAAAAWABEAAQAAAAEAAAAWABAAAQAAAAEAAAAWAA8AAQAAAAEAAAAWAA4AAQAAAAEAAAAWAA0AAQAAAAEAAAAWAAwAAQAAAAAAAAA=")
-tile_set = ExtResource("1_o8c7h")
+[node name="StageHolder" type="Node2D" parent="." unique_id=450520773]
+
+[node name="BaseStage" parent="StageHolder" unique_id=434215676 instance=ExtResource("7_eck33")]
 
 [node name="CenterPoint" type="Marker2D" parent="." unique_id=745366920]
 position = Vector2(960, 540)
-
-[node name="ArenaMask" type="Polygon2D" parent="CenterPoint" unique_id=1601231267]
-unique_name_in_owner = true
-clip_children = 1
-polygon = PackedVector2Array(-252, -150, 252, -150, 252, 154, -252, 154)
-
-[node name="Shadows" type="Node2D" parent="CenterPoint/ArenaMask" unique_id=1822428175]
-unique_name_in_owner = true
-
-[node name="ArenaBounds" type="Area2D" parent="CenterPoint" unique_id=1339897630]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-linear_damp_space_override = 1
-linear_damp = 10.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CenterPoint/ArenaBounds" unique_id=281394166]
-position = Vector2(-0.5, 1.5)
-shape = SubResource("RectangleShape2D_lwrwe")
 
 [node name="Actors" type="Node2D" parent="CenterPoint" unique_id=348940167]
 unique_name_in_owner = true
 y_sort_enabled = true
 
-[node name="Chargey2" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("10_0xsmf")]
-position = Vector2(176, -68)
+[node name="Chargey" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("8_kygoh")]
+position = Vector2(-111, 4)
 controller = 1
 
-[node name="Bouncy" parent="CenterPoint/Actors" unique_id=698045246 instance=ExtResource("9_5ospc")]
-position = Vector2(-159, 73)
+[node name="Chargey2" parent="CenterPoint/Actors" unique_id=1201037830 instance=ExtResource("8_kygoh")]
+position = Vector2(129, 4)
 controller = 2
 
-[node name="Chargey" parent="CenterPoint/Actors" unique_id=1695772122 instance=ExtResource("10_0xsmf")]
-position = Vector2(-158, -69)
-controller = 2
-
-[node name="Slippy" parent="CenterPoint/Actors" unique_id=63825484 instance=ExtResource("11_ropfh")]
-position = Vector2(177, 74)
-controller = 2
+[node name="ChargeRocketWheelies" parent="CenterPoint/Actors/Chargey2" unique_id=1423869553 instance=ExtResource("9_5ospc")]
+position = Vector2(-240, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)
 zoom = Vector2(3, 3)
 process_callback = 0
-
-[connection signal="body_exited" from="CenterPoint/ArenaBounds" to="." method="_on_arena_bounds_body_exited"]

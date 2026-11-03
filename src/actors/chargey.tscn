@@ -577,9 +577,9 @@ animations = [{
 [node name="Chargey" unique_id=500541823 instance=ExtResource("1_3e2b4")]
 script = ExtResource("1_kamsm")
 acceleration = 2000.0
-charge_accel = 1000.0
+charge_launch_accel = 1000.0
 charging_speed_modifier = 0.35
-charge_force = 500.0
+charge_impact_force = 500.0
 charge_active_time = 0.2
 charge_startup_time = 1.0
 

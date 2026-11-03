@@ -5,9 +5,9 @@ class_name ChargeActor
 # Max speed is determined by accel / damp
 
 @export var acceleration: float = 1000
-@export var charge_accel: float = 1000
+@export var charge_launch_accel: float = 1000
 @export_range(0, 1) var charging_speed_modifier: float = 0.01
-@export var charge_force: float = 500
+@export var charge_impact_force: float = 500
 @export var charge_active_time: float = 0.2
 @export var charge_startup_time: float = 1.0
 
@@ -75,7 +75,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			is_charging_ready = false
 			charge_active_timer.start()
 			is_charging_active = true
-			state.apply_central_impulse(last_nonzero_direction * charge_accel)
+			state.apply_central_impulse(last_nonzero_direction * charge_launch_accel)
 			charge_release_sfx.play()
 		else:
 			charge_startup_timer.stop()
@@ -88,7 +88,7 @@ func collide(state: PhysicsDirectBodyState2D) -> void:
 			break
 		var bumpee: RigidBody2D = state.get_contact_collider_object(i)
 		var bump_normal: Vector2 = state.get_contact_local_normal(i)
-		bumpee.apply_central_impulse(-bump_normal * charge_force)
+		bumpee.apply_central_impulse(-bump_normal * charge_impact_force)
 		big_bump_sfx.play()
 		print("Big bump!")
 
