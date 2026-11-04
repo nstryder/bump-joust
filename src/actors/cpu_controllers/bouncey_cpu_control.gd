@@ -6,8 +6,9 @@ extends BaseCpuControl
 
 func _ready() -> void:
 	super._ready()
-	bounce_actor.bounce_state_changed.connect(_on_bounce_state_changed)
-	bounce_actor._is_ability_pressed = true
+	if bounce_actor.controller == Actor.Controller.CPU:
+		bounce_actor.bounce_state_changed.connect(_on_bounce_state_changed)
+		bounce_actor._is_ability_pressed = true
 
 
 func _process(delta: float) -> void:

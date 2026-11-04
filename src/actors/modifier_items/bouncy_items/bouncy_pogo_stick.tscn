@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dv8hc2uxuc8u5"]
+
+[ext_resource type="PackedScene" uid="uid://de1aw4g1vljf3" path="res://src/actors/modifier_items/base_modifier_item.tscn" id="1_huljs"]
+[ext_resource type="Script" uid="uid://bowh6yjifqg22" path="res://src/actors/modifier_items/bouncy_items/bouncy_pogo_stick.gd" id="2_wexhk"]
+
+[node name="BouncyPogoStick" unique_id=1423869553 instance=ExtResource("1_huljs")]
+script = ExtResource("2_wexhk")

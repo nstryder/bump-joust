@@ -12,7 +12,9 @@ enum BounceState {
 @export var bounce_trajectory: Curve
 @export var bounce_height: float = 48
 @export var bounce_active_duration: float = 0.6
-@export var bounce_cooldown: float = 0.2
+@export var bounce_cooldown: float = 1.0
+@export var landing_radius_mod: float = 1.0
+@export var landing_force_mod: float = 1.0
 
 
 var _is_ability_pressed: bool = false
@@ -83,7 +85,7 @@ func _on_bounce_tween_finished() -> void:
 	_bounce_state = BounceState.COOLDOWN
 	bounce_cooldown_timer.start(bounce_cooldown)
 	toggle_collision(true)
-	var landing_force := LandingForce.construct(self)
+	var landing_force := LandingForce.construct(self, landing_force_mod, landing_radius_mod)
 	add_sibling(landing_force)
 	landing_force.global_position = global_position
 	
