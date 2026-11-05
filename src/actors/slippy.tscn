@@ -4,13 +4,15 @@
 [ext_resource type="Script" uid="uid://bp5m42t5sn2q8" path="res://src/actors/slippy.gd" id="2_bxejl"]
 [ext_resource type="PackedScene" uid="uid://d3h64ysmpw76a" path="res://src/actors/cpu_controllers/slippy_cpu_control.tscn" id="3_al7he"]
 
-[node name="Slippy" unique_id=500541823 instance=ExtResource("1_qw11c")]
+[node name="Slippy" unique_id=500541823 groups=["slip_actor"] instance=ExtResource("1_qw11c")]
+collision_layer = 3
 script = ExtResource("2_bxejl")
 acceleration = 1000.0
 slip_accel = 1000.0
+slip_lifetime = 2.0
+slip_damping = 0.0
 _slip_duration = 1.0
 _slip_cooldown_duration = 1.0
-_slip_interval = 0.017
 
 [node name="Sprite2D" parent="." index="0" unique_id=170752210]
 modulate = Color(0, 0.6500001, 1, 1)

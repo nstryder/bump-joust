@@ -293,7 +293,7 @@ stream_3/stream = ExtResource("6_4fki7")
 stream_4/stream = ExtResource("7_16xmt")
 
 [node name="BaseActor" type="RigidBody2D" unique_id=500541823 groups=["actors"]]
-collision_layer = 3
+collision_layer = 7
 gravity_scale = 0.0
 lock_rotation = true
 continuous_cd = 1

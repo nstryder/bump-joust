@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cm1uokma5x2ff"]
+
+[ext_resource type="Script" uid="uid://fw7fiyyycvfd" path="res://src/gamescreens/stages/goop_tile_area.gd" id="1_wx03x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwrwe"]
+size = Vector2(32, 32)
+
+[node name="GoopTileArea" type="Area2D" unique_id=618030718]
+physics_interpolation_mode = 2
+collision_layer = 0
+collision_mask = 4
+linear_damp_space_override = 3
+linear_damp = 0.0
+script = ExtResource("1_wx03x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1565484144]
+shape = SubResource("RectangleShape2D_lwrwe")
+debug_color = Color(1, 1, 0, 0.41960785)
+
+[node name="Timer" type="Timer" parent="." unique_id=1486682540]
+one_shot = true
+autostart = true

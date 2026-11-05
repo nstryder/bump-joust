@@ -1,6 +1,14 @@
 extends Actor
 class_name SlipActor
 
+# When slippy touches a tile, automatically paint it
+# When enough time has passed, unpaint the tile
+# If slippy touches the tile again, refresh the tile timer
+# How to do this...
+# We made an important assumption: Only 1 char type per player
+# So perhaps the tilset itself can track slippy? 
+
+
 enum SlipState {
 	NONE,
 	ACTIVE,
@@ -9,16 +17,18 @@ enum SlipState {
 
 @export var acceleration: float = 1000
 @export var slip_accel: float = 2000
+@export var slip_lifetime: float = 2.0
+@export var slip_damping: float = 0.0
 @export var _slip_duration: float = 1.0
 @export var _slip_cooldown_duration: float = 1.0
-@export var _slip_interval: float = 0.1
+# @export var _slip_interval: float = 0.1
 
 var _is_ability_pressed: bool = false
 
 signal slip_state_changed(value: SlipState)
-var _slip_state := SlipState.NONE:
+var slip_state := SlipState.ACTIVE:
 	set(value):
-		_slip_state = value
+		slip_state = value
 		slip_state_changed.emit(value)
 
 
@@ -44,31 +54,34 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	super._integrate_forces(state)
+	if not is_input_enabled:
+		return
+
 	var final_acceleration: float = acceleration
 
-	if _is_ability_pressed and _slip_state == SlipState.NONE:
+	if _is_ability_pressed and slip_state == SlipState.NONE:
 		_is_ability_pressed = false
-		_slip_state = SlipState.ACTIVE
+		slip_state = SlipState.ACTIVE
 		_slip_timer.start(_slip_duration)
-		_slip_interval_timer.start(_slip_interval)
+		# _slip_interval_timer.start(_slip_interval)
 	
-	if _slip_state == SlipState.ACTIVE:
+	if slip_state == SlipState.ACTIVE:
 		final_acceleration = slip_accel
 			
 	state.apply_central_force(input_direction * final_acceleration)
 
 
 func _on_slip_timer_timeout() -> void:
-	_slip_state = SlipState.COOLDOWN
+	slip_state = SlipState.COOLDOWN
 	_slip_interval_timer.stop()
 	_slip_cooldown.start(_slip_cooldown_duration)
 	
 
 func _on_slip_cooldown_timeout() -> void:
-	_slip_state = SlipState.NONE
+	slip_state = SlipState.NONE
 
 
-func _on_slip_interval_timer_timeout() -> void:
-	var puddle := SlipPuddle.construct()
-	add_sibling(puddle)
-	puddle.global_position = global_position
+# func _on_slip_interval_timer_timeout() -> void:
+# 	var puddle := SlipPuddle.construct()
+# 	add_sibling(puddle)
+# 	puddle.global_position = global_position

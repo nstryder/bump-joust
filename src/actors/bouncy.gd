@@ -58,17 +58,23 @@ func sprite_jump(curve_x: float) -> void:
 	sprite.position.y = bounce_trajectory.sample_baked(curve_x) * -bounce_height
 
 
-# Both layer and mask must be toggled 
+# Both layer and mask must be toggled
 # Because a collision happens even if self's layer is off but self can still scan other bodies
 func toggle_collision(value: bool) -> void:
-	set_collision_layer_value(1, value)
-	set_collision_mask_value(1, value)
+	const GROUND = 1
+	const GOOP = 3
+	set_collision_layer_value(GROUND, value)
+	set_collision_layer_value(GOOP, value)
+	set_collision_mask_value(GROUND, value)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	super._integrate_forces(state)
+	if not is_input_enabled:
+		return
+	
 	var final_acceleration: float = acceleration
-
+	
 	if _is_ability_pressed and _bounce_state == BounceState.NONE:
 		_is_ability_pressed = false
 		_bounce_state = BounceState.ACTIVE
@@ -77,7 +83,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	if _bounce_state == BounceState.ACTIVE:
 		final_acceleration = bounce_accel
-			
+		
 	state.apply_central_force(input_direction * final_acceleration)
 
 

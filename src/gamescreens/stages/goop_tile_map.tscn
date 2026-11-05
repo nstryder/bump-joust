@@ -1,0 +1,7 @@
+[gd_scene format=4 uid="uid://bpvlnm2lqmcay"]
+
+[ext_resource type="TileSet" uid="uid://c1x5yw26jp5te" path="res://assets/gfx/tilesets/goop.tres" id="1_duf5r"]
+
+[node name="GoopTileMap" type="TileMapLayer" unique_id=1781249631]
+tile_map_data = PackedByteArray("AAAcAA4AAAACAAYAAAAdAA4AAAACAAYAAAAeAA4AAAACAAYAAAAfAA4AAAACAAYAAAAgAA4AAAACAAYAAAAhAA4AAAACAAYAAAAiAA4AAAACAAAAAAAbAA4AAAACAAYAAAAaAA4AAAACAAYAAAAZAA4AAAACAAYAAAAYAA4AAAADAAAAAAAUABEAAAAAAAYAAAAXABEAAAAGAAAAAAAZABEAAAAGAAAAAAA=")
+tile_set = ExtResource("1_duf5r")

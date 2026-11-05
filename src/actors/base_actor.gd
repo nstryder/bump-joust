@@ -16,12 +16,11 @@ signal collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState
 @export var sfx_death: AudioStream
 @export var hit_stop_duration: float = 0.1
 @export var controller := Controller.NONE
-
+@export var is_input_enabled: bool = true
 
 var input_direction := Vector2.ZERO
 var last_nonzero_direction := Vector2.DOWN
 var last_nonzero_x: float = 1.0
-
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]

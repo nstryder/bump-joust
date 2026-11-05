@@ -55,6 +55,9 @@ func _process(_delta: float) -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	super._integrate_forces(state)
+	if not is_input_enabled:
+		return
+
 	var final_acceleration: float = acceleration
 	if is_charging_pressed:
 		final_acceleration *= charging_speed_modifier

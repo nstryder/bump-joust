@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://digh4ob3iivj6" path="res://assets/audio/sfx/Punch__008.wav" id="8_ropfh"]
 [ext_resource type="PackedScene" uid="uid://bw5a4onwkgd1" path="res://src/actors/bouncy.tscn" id="8_ywmkn"]
 [ext_resource type="AudioStream" uid="uid://b4brjmr8yx2t" path="res://assets/audio/sfx/Punch__010.wav" id="9_ojtwx"]
-[ext_resource type="PackedScene" uid="uid://dnd231gj3s31r" path="res://src/actors/modifier_items/bouncy_items/bouncy_propeller_hat.tscn" id="9_ywmkn"]
+[ext_resource type="PackedScene" uid="uid://dw3pb2s2qtrpk" path="res://src/actors/slippy.tscn" id="10_ywmkn"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b1nx7"]
 streams_count = 5
@@ -41,14 +41,18 @@ position = Vector2(960, 540)
 unique_name_in_owner = true
 y_sort_enabled = true
 
-[node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("8_ywmkn")]
-position = Vector2(-128, 3)
+[node name="Slippy" parent="CenterPoint/Actors" unique_id=66604537 instance=ExtResource("10_ywmkn")]
+position = Vector2(-1, -68)
+acceleration = 2000.0
 controller = 1
 
-[node name="BouncyPropellerHat" parent="CenterPoint/Actors/Bouncy" unique_id=1423869553 instance=ExtResource("9_ywmkn")]
+[node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("8_ywmkn")]
+position = Vector2(-128, 3)
+controller = 2
 
-[node name="Chargey2" parent="CenterPoint/Actors" unique_id=1201037830 instance=ExtResource("8_kygoh")]
+[node name="Chargey" parent="CenterPoint/Actors" unique_id=1201037830 instance=ExtResource("8_kygoh")]
 position = Vector2(129, 4)
+controller = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)
