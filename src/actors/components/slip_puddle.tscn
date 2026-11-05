@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cwj4ibw16vuke"]
 
 [ext_resource type="Script" uid="uid://c0kp3hg4gn6xb" path="res://src/actors/components/slip_puddle.gd" id="1_l3bxm"]
-[ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle.svg" id="1_xxh1h"]
+[ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle_16.svg" id="1_xxh1h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lwrwe"]
 radius = 8.0

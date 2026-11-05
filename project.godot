@@ -40,6 +40,11 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 display_server/driver.linuxbsd="wayland"
 
+[global_group]
+
+actors=""
+shadows=""
+
 [input]
 
 move_up={

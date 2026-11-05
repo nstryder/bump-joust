@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dnd231gj3s31r"]
+
+[ext_resource type="PackedScene" uid="uid://de1aw4g1vljf3" path="res://src/actors/modifier_items/base_modifier_item.tscn" id="1_k4oxy"]
+[ext_resource type="Script" uid="uid://dpujhau03yiq5" path="res://src/actors/modifier_items/bouncy_items/bouncy_propeller_hat.gd" id="2_goftb"]
+
+[node name="BouncyPropellerHat" unique_id=1423869553 instance=ExtResource("1_k4oxy")]
+script = ExtResource("2_goftb")

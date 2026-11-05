@@ -14,7 +14,13 @@ enum SlipState {
 @export var _slip_interval: float = 0.1
 
 var _is_ability_pressed: bool = false
-var _slip_state := SlipState.NONE
+
+signal slip_state_changed(value: SlipState)
+var _slip_state := SlipState.NONE:
+	set(value):
+		_slip_state = value
+		slip_state_changed.emit(value)
+
 
 @onready var _slip_timer: Timer = $SlipTimer
 @onready var _slip_cooldown: Timer = $SlipCooldown

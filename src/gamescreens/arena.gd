@@ -1,24 +1,27 @@
 extends Node2D
 
 @export var bump_sfx: AudioStream
-@export var bump_intensity: float = 2.0
+@export var bump_intensity: float = 1.0
 @export var bump_min_intensity: float = 400
 @export var hitstop_curve: Curve
 
 ## Inversely proportional to how much hitstop should occur. Needed since we set hitstop dynamically.
-@export var hitstop_resistance: float = 1500
+@export var hitstop_resistance: float = 2500
 
+var current_stage: Stage
 var collided_this_frame: bool = false
 
 var tween: Tween
 
 @onready var actors: Node2D = %Actors
-@onready var arena_mask: Polygon2D = %ArenaMask
-@onready var shadows: Node2D = %Shadows
+@onready var stage_holder: Node2D = $StageHolder
 
 
 func _ready() -> void:
 	EventBus.hitstop_requested.connect(do_hitstop)
+	current_stage = stage_holder.get_child(0)
+	current_stage.actor_rung_out.connect(_on_actor_rung_out)
+
 	for actor: Actor in actors.get_children():
 		actor.collided.connect(_on_actor_collided)
 		var shadow: Shadow = spawn_shadow(actor.shadow_remote)
@@ -38,7 +41,7 @@ func do_hitstop(duration: float) -> void:
 
 func spawn_shadow(remote_transform: RemoteTransform2D) -> Shadow:
 	var shadow := Shadow.construct()
-	shadows.add_child(shadow)
+	current_stage.shadows.add_child(shadow)
 	var path_to: NodePath = remote_transform.get_path_to(shadow)
 	remote_transform.remote_path = path_to
 	return shadow
@@ -65,16 +68,21 @@ func _on_actor_collided(actor1: Actor, state1: PhysicsDirectBodyState2D, actor2:
 		# Determine max speed for various calculations
 		var speed1: float = state1.get_contact_local_velocity_at_position(i).length()
 		var speed2: float = state2.get_contact_local_velocity_at_position(i).length()
-		var highest_speed: float = maxf(speed1, speed2)
+		# var highest_speed: float = maxf(speed1, speed2)
+		var highest_speed: float = speed1 + speed2
 
-		# Apply mutual bump force
+		# Determine final bump instensity, used for both sides 
 		var final_bump_intensity: float = bump_intensity * highest_speed
 		print(final_bump_intensity)
 		final_bump_intensity = maxf(final_bump_intensity, bump_min_intensity)
+
+		# Apply mutual bump force
 		var bump_normal1: Vector2 = state1.get_contact_local_normal(i)
 		var bump_normal2: Vector2 = state2.get_contact_local_normal(i)
-		state1.apply_central_impulse(bump_normal1 * final_bump_intensity * actor1.recoil_intensity)
-		state2.apply_central_impulse(bump_normal2 * final_bump_intensity * actor2.recoil_intensity)
+		var bump_force1: float = final_bump_intensity * actor1.knockback_take_modifier * actor2.knockback_give_modifier
+		var bump_force2: float = final_bump_intensity * actor2.knockback_take_modifier * actor1.knockback_give_modifier
+		state1.apply_central_impulse(bump_normal1 * bump_force1)
+		state2.apply_central_impulse(bump_normal2 * bump_force2)
 		
 		# Play sfx
 		Audio.play_2d(bump_sfx, collided_at)
@@ -86,11 +94,13 @@ func _on_actor_collided(actor1: Actor, state1: PhysicsDirectBodyState2D, actor2:
 		bump_vfx.emitting = true
 
 		# Determine hitstop based on intensity of collision
-		var hitstop_time: float = highest_speed / hitstop_resistance
+		var max_bump_force: float = maxf(bump_force1, bump_force2)
+		var hitstop_time: float = max_bump_force / hitstop_resistance
 
-		# print("%.3f" % hitstop_time)
+		print("%.3f | %.3f" % [max_bump_force, hitstop_time])
 		do_hitstop(hitstop_time)
 	
 
-func _on_arena_bounds_body_exited(actor: Actor) -> void:
+func _on_actor_rung_out(actor: Actor) -> void:
 	actor.die()
+	do_hitstop(1.0)

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://rtknfnnx15s4"]
+
+[ext_resource type="PackedScene" uid="uid://de1aw4g1vljf3" path="res://src/actors/modifier_items/base_modifier_item.tscn" id="1_v6b4e"]
+[ext_resource type="Script" uid="uid://bu34qcss7q4yx" path="res://src/actors/modifier_items/chargey_items/charge_hamster_ball.gd" id="2_fl73m"]
+
+[node name="ChargeHamsterBall" unique_id=1423869553 instance=ExtResource("1_v6b4e")]
+script = ExtResource("2_fl73m")

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_v7w1x"]
 [ext_resource type="Script" uid="uid://fpiu6i3mtl4q" path="res://src/actors/bouncy.gd" id="2_bqlqi"]
+[ext_resource type="PackedScene" uid="uid://cqk7orms586us" path="res://src/actors/cpu_controllers/bouncey_cpu_control.tscn" id="3_1j2kl"]
 
 [sub_resource type="Curve" id="Curve_bqlqi"]
 _data = [Vector2(0, 0), 0.0, 5.0, 0, 0, Vector2(0.49957883, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
@@ -14,12 +15,16 @@ bounce_accel = 2000.0
 bounce_trajectory = SubResource("Curve_bqlqi")
 bounce_height = 48.0
 bounce_active_duration = 0.6
-bounce_cooldown = 0.2
+bounce_cooldown = 1.0
+landing_radius_mod = 1.0
+landing_force_mod = 1.0
 
 [node name="Sprite2D" parent="." index="0" unique_id=170752210]
 modulate = Color(0.116666794, 1, 0, 1)
 
 [node name="BounceCooldownTimer" type="Timer" parent="." index="7" unique_id=1326797947]
 one_shot = true
+
+[node name="BounceyCpuControl" parent="." index="8" unique_id=1650306333 instance=ExtResource("3_1j2kl")]
 
 [connection signal="timeout" from="BounceCooldownTimer" to="." method="_on_bounce_cooldown_timer_timeout"]

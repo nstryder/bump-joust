@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://muqjawucajfp"]
+
+[ext_resource type="PackedScene" uid="uid://de1aw4g1vljf3" path="res://src/actors/modifier_items/base_modifier_item.tscn" id="1_cmpx3"]
+[ext_resource type="Script" uid="uid://dn36j1qmthrv0" path="res://src/actors/modifier_items/chargey_items/charge_rocket_wheelies.gd" id="2_8nnvf"]
+
+[node name="ChargeRocketWheelies" unique_id=1423869553 instance=ExtResource("1_cmpx3")]
+script = ExtResource("2_8nnvf")

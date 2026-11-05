@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cq0hqnpjgy68"]
+
+[ext_resource type="Script" uid="uid://c3axrwsqaxija" path="res://src/actors/cpu_controllers/base_cpu_control.gd" id="1_ryrhw"]
+
+[node name="BaseCpuControl" type="Node2D" unique_id=1650306333]
+script = ExtResource("1_ryrhw")
