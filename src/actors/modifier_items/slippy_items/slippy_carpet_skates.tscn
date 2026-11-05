@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://y7lm38deujag"]
+
+[ext_resource type="PackedScene" uid="uid://de1aw4g1vljf3" path="res://src/actors/modifier_items/base_modifier_item.tscn" id="1_q1hun"]
+[ext_resource type="Script" uid="uid://drvcxawq7wcgt" path="res://src/actors/modifier_items/slippy_items/slippy_carpet_skates.gd" id="2_vqfd5"]
+
+[node name="SlippyCarpetSkates" unique_id=1423869553 instance=ExtResource("1_q1hun")]
+script = ExtResource("2_vqfd5")

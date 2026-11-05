@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c57ycanfjbd10"]
+
+[ext_resource type="PackedScene" uid="uid://de1aw4g1vljf3" path="res://src/actors/modifier_items/base_modifier_item.tscn" id="1_mac8q"]
+[ext_resource type="Script" uid="uid://baaq3lbt0231h" path="res://src/actors/modifier_items/slippy_items/slippy_fuzzy_socks.gd" id="2_mac8q"]
+
+[node name="SlippyFuzzySocks" unique_id=1423869553 instance=ExtResource("1_mac8q")]
+script = ExtResource("2_mac8q")

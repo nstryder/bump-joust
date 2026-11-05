@@ -43,12 +43,10 @@ y_sort_enabled = true
 
 [node name="Slippy" parent="CenterPoint/Actors" unique_id=66604537 instance=ExtResource("10_ywmkn")]
 position = Vector2(-1, -68)
-acceleration = 2000.0
 controller = 1
 
 [node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("8_ywmkn")]
 position = Vector2(-128, 3)
-controller = 2
 
 [node name="Chargey" parent="CenterPoint/Actors" unique_id=1201037830 instance=ExtResource("8_kygoh")]
 position = Vector2(129, 4)

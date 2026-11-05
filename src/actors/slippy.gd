@@ -1,13 +1,6 @@
 extends Actor
 class_name SlipActor
 
-# When slippy touches a tile, automatically paint it
-# When enough time has passed, unpaint the tile
-# If slippy touches the tile again, refresh the tile timer
-# How to do this...
-# We made an important assumption: Only 1 char type per player
-# So perhaps the tilset itself can track slippy? 
-
 
 enum SlipState {
 	NONE,
@@ -21,8 +14,9 @@ enum SlipState {
 @export var slip_damping: float = 0.0
 @export var _slip_duration: float = 1.0
 @export var _slip_cooldown_duration: float = 1.0
-# @export var _slip_interval: float = 0.1
 
+var slip_can_paralyze: bool = false
+var ability_is_passive: bool = true
 var _is_ability_pressed: bool = false
 
 signal slip_state_changed(value: SlipState)
@@ -30,7 +24,6 @@ var slip_state := SlipState.ACTIVE:
 	set(value):
 		slip_state = value
 		slip_state_changed.emit(value)
-
 
 @onready var _slip_timer: Timer = $SlipTimer
 @onready var _slip_cooldown: Timer = $SlipCooldown
@@ -59,11 +52,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	var final_acceleration: float = acceleration
 
-	if _is_ability_pressed and slip_state == SlipState.NONE:
+	if not ability_is_passive and _is_ability_pressed and slip_state == SlipState.NONE:
 		_is_ability_pressed = false
 		slip_state = SlipState.ACTIVE
 		_slip_timer.start(_slip_duration)
-		# _slip_interval_timer.start(_slip_interval)
 	
 	if slip_state == SlipState.ACTIVE:
 		final_acceleration = slip_accel
@@ -79,9 +71,3 @@ func _on_slip_timer_timeout() -> void:
 
 func _on_slip_cooldown_timeout() -> void:
 	slip_state = SlipState.NONE
-
-
-# func _on_slip_interval_timer_timeout() -> void:
-# 	var puddle := SlipPuddle.construct()
-# 	add_sibling(puddle)
-# 	puddle.global_position = global_position

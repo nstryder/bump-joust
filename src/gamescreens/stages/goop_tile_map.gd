@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 
 
 func add_tracked_tile(tile_coord: Vector2) -> void:
-	var goop := GoopTileArea.construct(slip_actor.slip_damping)
+	var goop := GoopTileArea.construct(slip_actor.slip_damping, slip_actor.slip_can_paralyze)
 	tracked_tiles[tile_coord] = goop
 	add_child(goop)
 	goop.global_position = to_global(map_to_local(tile_coord))
