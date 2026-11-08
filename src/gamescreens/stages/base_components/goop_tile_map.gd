@@ -5,12 +5,10 @@ var slip_actor: SlipActor
 var tracked_tiles: Dictionary[Vector2, GoopTileArea] = {}
 
 func _ready() -> void:
-	slip_actor = get_tree().get_first_node_in_group("slip_actor")
-	if not slip_actor:
-		set_process(false)
-	slip_actor.tree_exiting.connect(set_process.bind(false))
+	EventBus.slippy_spawned.connect(_on_slippy_spawned)
+	set_process(false)
 	
-
+	
 func _process(_delta: float) -> void:
 	if not slip_actor.slip_state == SlipActor.SlipState.ACTIVE:
 		return
@@ -34,6 +32,12 @@ func remove_tracked_tile(tile_coord: Vector2) -> void:
 	tracked_tiles[tile_coord].queue_free()
 	tracked_tiles.erase(tile_coord)
 	erase_cell(tile_coord)
+
+
+func _on_slippy_spawned(actor: SlipActor) -> void:
+	slip_actor = actor
+	slip_actor.tree_exiting.connect(set_process.bind(false))
+	set_process(true)
 
 
 func _on_goop_timer_timeout(tile_coord: Vector2) -> void:

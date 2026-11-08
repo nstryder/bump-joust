@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Bump Joust"
-run/main_scene="uid://bm6bbakmfe0yg"
+run/main_scene="uid://bv2f5c07uby2a"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,8 @@ buses/default_bus_layout="uid://dlhsoj27krkng"
 
 Audio="*uid://ux00gvfwmt7a"
 EventBus="*uid://c3i7blwecbeop"
+Game="*uid://cwakbgdrp00u8"
+Shroud="*uid://dvox8cofngluc"
 
 [debug]
 

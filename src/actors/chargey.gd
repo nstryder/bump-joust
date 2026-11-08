@@ -51,7 +51,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	var extra_speed_modifier: float = linear_velocity.length() / (acceleration / linear_damp)
 	animation_tree["parameters/walk/TimeScale/scale"] = 1.0 + extra_speed_modifier
-
+	
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	super._integrate_forces(state)

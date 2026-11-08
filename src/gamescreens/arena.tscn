@@ -4,12 +4,8 @@
 [ext_resource type="AudioStream" uid="uid://bfji0ckl8g780" path="res://assets/audio/sfx/Punch__001.wav" id="5_5ospc"]
 [ext_resource type="AudioStream" uid="uid://boqaw2hn4xccv" path="res://assets/audio/sfx/Punch__002.wav" id="6_ywmkn"]
 [ext_resource type="AudioStream" uid="uid://74t76nfh7mx7" path="res://assets/audio/sfx/Punch__004.wav" id="7_0xsmf"]
-[ext_resource type="PackedScene" uid="uid://bef3l60jptb1v" path="res://src/gamescreens/stages/base_stage.tscn" id="7_eck33"]
-[ext_resource type="PackedScene" uid="uid://devg3o5en8yjo" path="res://src/actors/chargey.tscn" id="8_kygoh"]
 [ext_resource type="AudioStream" uid="uid://digh4ob3iivj6" path="res://assets/audio/sfx/Punch__008.wav" id="8_ropfh"]
-[ext_resource type="PackedScene" uid="uid://bw5a4onwkgd1" path="res://src/actors/bouncy.tscn" id="8_ywmkn"]
 [ext_resource type="AudioStream" uid="uid://b4brjmr8yx2t" path="res://assets/audio/sfx/Punch__010.wav" id="9_ojtwx"]
-[ext_resource type="PackedScene" uid="uid://dw3pb2s2qtrpk" path="res://src/actors/slippy.tscn" id="10_ywmkn"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b1nx7"]
 streams_count = 5
@@ -28,11 +24,10 @@ point_count = 2
 y_sort_enabled = true
 script = ExtResource("1_gaerr")
 bump_sfx = SubResource("AudioStreamRandomizer_b1nx7")
+bump_intensity = 2.0
 hitstop_curve = SubResource("Curve_5ospc")
 
 [node name="StageHolder" type="Node2D" parent="." unique_id=450520773]
-
-[node name="BaseStage" parent="StageHolder" unique_id=434215676 instance=ExtResource("7_eck33")]
 
 [node name="CenterPoint" type="Marker2D" parent="." unique_id=745366920]
 position = Vector2(960, 540)
@@ -40,17 +35,6 @@ position = Vector2(960, 540)
 [node name="Actors" type="Node2D" parent="CenterPoint" unique_id=348940167]
 unique_name_in_owner = true
 y_sort_enabled = true
-
-[node name="Slippy" parent="CenterPoint/Actors" unique_id=66604537 instance=ExtResource("10_ywmkn")]
-position = Vector2(-1, -68)
-controller = 1
-
-[node name="Bouncy" parent="CenterPoint/Actors" unique_id=500541823 instance=ExtResource("8_ywmkn")]
-position = Vector2(-128, 3)
-
-[node name="Chargey" parent="CenterPoint/Actors" unique_id=1201037830 instance=ExtResource("8_kygoh")]
-position = Vector2(129, 4)
-controller = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)

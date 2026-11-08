@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bef3l60jptb1v"]
+
+[ext_resource type="TileSet" uid="uid://cm5vyswjcicxs" path="res://assets/gfx/tilesets/stone_floor.tres" id="1_0oaxm"]
+[ext_resource type="Script" uid="uid://cyy2t20ny4s3q" path="res://src/gamescreens/stages/base_components/base_stage.gd" id="2_kbiti"]
+[ext_resource type="PackedScene" uid="uid://bpvlnm2lqmcay" path="res://src/gamescreens/stages/base_components/goop_tile_map.tscn" id="3_04gjc"]
+[ext_resource type="Script" uid="uid://dkc0b4d1pbwvv" path="res://src/gamescreens/stages/base_components/goop_tile_map.gd" id="4_3146c"]
+
+[node name="Stage" type="TileMapLayer" unique_id=434215676]
+tile_set = ExtResource("1_0oaxm")
+collision_enabled = false
+navigation_enabled = false
+script = ExtResource("2_kbiti")
+
+[node name="ArenaMask" type="Polygon2D" parent="." unique_id=1686250696]
+unique_name_in_owner = true
+clip_children = 1
+position = Vector2(960, 540)
+
+[node name="Shadows" type="Node2D" parent="ArenaMask" unique_id=1290503966 groups=["shadows"]]
+unique_name_in_owner = true
+
+[node name="ArenaBounds" type="Area2D" parent="." unique_id=1435590545]
+position = Vector2(960, 540)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+linear_damp_space_override = 1
+linear_damp = 10.0
+
+[node name="GoopTileMap" parent="." unique_id=1781249631 instance=ExtResource("3_04gjc")]
+tile_map_data = PackedByteArray()
+collision_enabled = false
+navigation_enabled = false
+script = ExtResource("4_3146c")
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=2074488488]
+
+[node name="Point1" type="Marker2D" parent="SpawnPoints" unique_id=1334596275]
+position = Vector2(960, 448)
+
+[node name="Point2" type="Marker2D" parent="SpawnPoints" unique_id=832665626]
+position = Vector2(784, 624)
+
+[node name="Point3" type="Marker2D" parent="SpawnPoints" unique_id=244785517]
+position = Vector2(1136, 624)
+
+[connection signal="body_exited" from="ArenaBounds" to="." method="_on_arena_bounds_body_exited"]

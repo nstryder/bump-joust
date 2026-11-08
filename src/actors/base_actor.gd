@@ -57,6 +57,8 @@ func collide(state: PhysicsDirectBodyState2D) -> void:
 
 
 func die() -> void:
+	if is_queued_for_deletion():
+		return
 	var explosion := Explosion.construct()
 	explosion.global_position = global_position
 	get_tree().root.add_child(explosion)

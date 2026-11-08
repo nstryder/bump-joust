@@ -1,4 +1,9 @@
 extends Node2D
+class_name Arena
+
+const BOUNCY = preload("uid://bw5a4onwkgd1")
+const CHARGEY = preload("uid://devg3o5en8yjo")
+const SLIPPY = preload("uid://dw3pb2s2qtrpk")
 
 @export var bump_sfx: AudioStream
 @export var bump_intensity: float = 1.0
@@ -8,26 +13,41 @@ extends Node2D
 ## Inversely proportional to how much hitstop should occur. Needed since we set hitstop dynamically.
 @export var hitstop_resistance: float = 2500
 
-var current_stage: Stage
 var collided_this_frame: bool = false
 
 var tween: Tween
 
 @onready var actors: Node2D = %Actors
 @onready var stage_holder: Node2D = $StageHolder
+@onready var current_stage: Stage = stage_holder.get_child(0)
 
 
 func _ready() -> void:
+	setup_all_signals()
+	spawn_all_shadows()
+
+
+func setup_all_signals() -> void:
 	EventBus.hitstop_requested.connect(do_hitstop)
-	current_stage = stage_holder.get_child(0)
 	current_stage.actor_rung_out.connect(_on_actor_rung_out)
 
+
+func spawn_all_shadows() -> void:
 	for actor: Actor in actors.get_children():
 		actor.collided.connect(_on_actor_collided)
 		var shadow: Shadow = spawn_shadow(actor.shadow_remote)
 		actor.shadow = shadow
-		
 
+
+func spawn_shadow(remote_transform: RemoteTransform2D) -> Shadow:
+	var shadow := Shadow.construct()
+	current_stage.shadows.add_child(shadow)
+	var path_to: NodePath = remote_transform.get_path_to(shadow)
+	remote_transform.remote_path = path_to
+	shadow.reset_physics_interpolation()
+	return shadow
+
+		
 func do_hitstop(duration: float) -> void:
 	if tween:
 		tween.kill()
@@ -39,14 +59,6 @@ func do_hitstop(duration: float) -> void:
 	tween.tween_method(_interpolate_hitstop, 0, 1, duration)
 
 
-func spawn_shadow(remote_transform: RemoteTransform2D) -> Shadow:
-	var shadow := Shadow.construct()
-	current_stage.shadows.add_child(shadow)
-	var path_to: NodePath = remote_transform.get_path_to(shadow)
-	remote_transform.remote_path = path_to
-	return shadow
-	
-	
 func reset_collide_flag() -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
@@ -102,5 +114,7 @@ func _on_actor_collided(actor1: Actor, state1: PhysicsDirectBodyState2D, actor2:
 	
 
 func _on_actor_rung_out(actor: Actor) -> void:
+	if Game.is_changing_scenes:
+		return
 	actor.die()
 	do_hitstop(1.0)

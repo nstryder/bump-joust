@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://bvexth15mr13m"]
+
+[ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_evexd"]
+[ext_resource type="Texture2D" uid="uid://cdf2q5oi6efh8" path="res://assets/gfx/sprites/environmental/spheres.png" id="2_02xqp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rqcl"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(0, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8olo"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(16, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f47xq"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(32, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itn25"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(48, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf26j"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(64, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mw3g"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(80, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ughe"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(96, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l66u8"]
+atlas = ExtResource("2_02xqp")
+region = Rect2(112, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lwrwe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rqcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8olo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f47xq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itn25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf26j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mw3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ughe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l66u8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rq4du"]
+radius = 8.0
+
+[node name="Dummy" unique_id=500541823 instance=ExtResource("1_evexd")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1516786995]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_lwrwe")
+autoplay = "default"
+frame_progress = 0.3547685
+
+[node name="Sprite2D" parent="." index="1" unique_id=170752210]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="2" unique_id=1203170032]
+visible = true
+shape = SubResource("CircleShape2D_rq4du")

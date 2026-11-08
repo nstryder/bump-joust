@@ -295,8 +295,9 @@ stream_4/stream = ExtResource("7_16xmt")
 [node name="BaseActor" type="RigidBody2D" unique_id=500541823 groups=["actors"]]
 collision_layer = 7
 gravity_scale = 0.0
+can_sleep = false
 lock_rotation = true
-continuous_cd = 1
+continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_6d832")

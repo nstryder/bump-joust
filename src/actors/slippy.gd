@@ -32,6 +32,7 @@ var slip_state := SlipState.ACTIVE:
 
 func _ready() -> void:
 	super._ready()
+	EventBus.slippy_spawned.emit(self)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

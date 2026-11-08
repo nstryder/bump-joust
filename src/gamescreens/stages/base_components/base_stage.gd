@@ -4,6 +4,12 @@ class_name Stage
 signal actor_rung_out(actor: Actor)
 
 @onready var shadows: Node2D = %Shadows
+@onready var spawn_points: Node2D = $SpawnPoints
+
+
+func get_spawn_point(index: int) -> Vector2:
+	var marker: Marker2D = spawn_points.get_child(index)
+	return marker.global_position
 
 
 func _on_arena_bounds_body_exited(body: Node2D) -> void:

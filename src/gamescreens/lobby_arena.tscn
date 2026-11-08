@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bv2f5c07uby2a"]
+
+[ext_resource type="PackedScene" uid="uid://bm6bbakmfe0yg" path="res://src/gamescreens/arena.tscn" id="1_rwxjj"]
+[ext_resource type="Script" uid="uid://cg8eaoj4vpqns" path="res://src/gamescreens/lobby_arena.gd" id="2_r4sin"]
+[ext_resource type="PackedScene" uid="uid://cmyqbn3dnes7r" path="res://src/gamescreens/stages/stage_lobby.tscn" id="3_f2pjm"]
+[ext_resource type="PackedScene" uid="uid://bvexth15mr13m" path="res://src/actors/dummy.tscn" id="5_8n61f"]
+[ext_resource type="PackedScene" uid="uid://bju7offswhusv" path="res://src/gamescreens/stages/base_components/stairs.tscn" id="5_yi334"]
+
+[node name="LobbyArena" unique_id=1490462069 instance=ExtResource("1_rwxjj")]
+script = ExtResource("2_r4sin")
+
+[node name="StageLobby" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("3_f2pjm")]
+
+[node name="Dummy" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=55444089 instance=ExtResource("5_8n61f")]
+position = Vector2(80, 4)
+can_sleep = true
+
+[node name="PlayerSpawnPoint" type="Marker2D" parent="." index="3" unique_id=2106376794]
+position = Vector2(872, 544)
+
+[node name="Stairs" parent="." index="4" unique_id=1184712954 instance=ExtResource("5_yi334")]
+position = Vector2(960, 416)
+
+[connection signal="body_entered" from="Stairs" to="." method="_on_stairs_body_entered"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cm1uokma5x2ff"]
 
-[ext_resource type="Script" uid="uid://fw7fiyyycvfd" path="res://src/gamescreens/stages/goop_tile_area.gd" id="1_wx03x"]
+[ext_resource type="Script" uid="uid://fw7fiyyycvfd" path="res://src/gamescreens/stages/base_components/goop_tile_area.gd" id="1_wx03x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwrwe"]
 size = Vector2(32, 32)
