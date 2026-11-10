@@ -11,12 +11,15 @@ enum Controller {
 
 signal collided(state1: PhysicsDirectBodyState2D, state2: PhysicsDirectBodyState2D)
 
+@export var archetype: Game.Archetypes
 @export var knockback_give_modifier: float = 1.0
 @export var knockback_take_modifier: float = 1.0
 @export var sfx_death: AudioStream
 @export var hit_stop_duration: float = 0.1
 @export var controller := Controller.NONE
 @export var is_input_enabled: bool = true
+@export var is_invincible: bool = false
+# @export var modifier_item
 
 var input_direction := Vector2.ZERO
 var last_nonzero_direction := Vector2.DOWN
@@ -57,7 +60,7 @@ func collide(state: PhysicsDirectBodyState2D) -> void:
 
 
 func die() -> void:
-	if is_queued_for_deletion():
+	if is_queued_for_deletion() or is_invincible:
 		return
 	var explosion := Explosion.construct()
 	explosion.global_position = global_position

@@ -92,7 +92,7 @@ func _on_bounce_tween_finished() -> void:
 	bounce_cooldown_timer.start(bounce_cooldown)
 	toggle_collision(true)
 	var landing_force := LandingForce.construct(self, landing_force_mod, landing_radius_mod)
-	add_sibling(landing_force)
+	add_child(landing_force)
 	landing_force.global_position = global_position
 	
 

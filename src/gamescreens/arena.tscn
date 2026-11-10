@@ -24,7 +24,6 @@ point_count = 2
 y_sort_enabled = true
 script = ExtResource("1_gaerr")
 bump_sfx = SubResource("AudioStreamRandomizer_b1nx7")
-bump_intensity = 2.0
 hitstop_curve = SubResource("Curve_5ospc")
 
 [node name="StageHolder" type="Node2D" parent="." unique_id=450520773]

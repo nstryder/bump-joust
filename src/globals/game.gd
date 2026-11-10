@@ -1,7 +1,8 @@
 extends Node
 
 const LOBBY = preload("uid://bv2f5c07uby2a")
-const MAIN_ARENA = preload("uid://dpdq1iv6nrbtw")
+const MAIN_ARENA = preload("uid://ngp1y6emdbyq")
+const SUDDEN_DEATH = preload("uid://c3bopdykmd1tg")
 
 
 const CHARGEY = preload("uid://devg3o5en8yjo")
@@ -12,7 +13,8 @@ const SLIPPY = preload("uid://dw3pb2s2qtrpk")
 enum Archetypes {
 	CHARGEY,
 	BOUNCY,
-	SLIPPY
+	SLIPPY,
+	KILLER
 }
 
 const archetype_scenes: Dictionary[Archetypes, PackedScene] = {
@@ -23,6 +25,7 @@ const archetype_scenes: Dictionary[Archetypes, PackedScene] = {
 
 var player_archetype := Archetypes.CHARGEY
 var is_changing_scenes: bool = false
+var sudden_death_leftovers: Array[Archetypes] = []
 
 @onready var shroud: ShroudGlobal = Shroud
 
@@ -46,19 +49,24 @@ func instance_cpus() -> Array[Actor]:
 
 func change_scene(new_scene: PackedScene) -> void:
 	is_changing_scenes = true
+	await get_tree().process_frame
 	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	await shroud.fade_out()
-	await get_tree().process_frame
 	get_tree().change_scene_to_packed(new_scene)
 	await get_tree().process_frame
 	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	await shroud.fade_in()
+	await get_tree().process_frame
 	get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
 	is_changing_scenes = false
 
 
 func start_main_game() -> void:
 	change_scene(MAIN_ARENA)
+
+
+func start_sudden_death() -> void:
+	change_scene(SUDDEN_DEATH)
 
 
 func return_to_lobby() -> void:

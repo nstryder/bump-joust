@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cuf05tcxeheic"]
+
+[ext_resource type="PackedScene" uid="uid://cq0hqnpjgy68" path="res://src/actors/cpu_controllers/base_cpu_control.tscn" id="1_ohf8e"]
+[ext_resource type="Script" uid="uid://vfs32ns1rydj" path="res://src/actors/cpu_controllers/killer_cpu_control.gd" id="2_5pgpt"]
+
+[node name="KillerCpuControl" unique_id=1650306333 instance=ExtResource("1_ohf8e")]
+script = ExtResource("2_5pgpt")

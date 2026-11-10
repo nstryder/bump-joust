@@ -582,6 +582,7 @@ charging_speed_modifier = 0.35
 charge_impact_force = 2000.0
 charge_active_time = 0.2
 charge_startup_time = 1.0
+knockback_give_modifier = 4.0
 
 [node name="ChargeVfx" type="AnimatedSprite2D" parent="." index="0" unique_id=1050096934]
 visible = false

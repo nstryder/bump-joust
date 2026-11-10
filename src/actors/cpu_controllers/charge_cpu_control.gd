@@ -16,10 +16,6 @@ func _ready() -> void:
 	charge_interval_timer.wait_time = charge_interval
 
 
-func _process(delta: float) -> void:
-	super._process(delta)
-
-
 func _on_charge_attack_interval_timeout() -> void:
 	charge_actor.is_charging_pressed = true
 	charge_actor.is_charging_just_pressed = true

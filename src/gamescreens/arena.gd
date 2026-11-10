@@ -1,10 +1,6 @@
 extends Node2D
 class_name Arena
 
-const BOUNCY = preload("uid://bw5a4onwkgd1")
-const CHARGEY = preload("uid://devg3o5en8yjo")
-const SLIPPY = preload("uid://dw3pb2s2qtrpk")
-
 @export var bump_sfx: AudioStream
 @export var bump_intensity: float = 1.0
 @export var bump_min_intensity: float = 400
@@ -14,7 +10,6 @@ const SLIPPY = preload("uid://dw3pb2s2qtrpk")
 @export var hitstop_resistance: float = 2500
 
 var collided_this_frame: bool = false
-
 var tween: Tween
 
 @onready var actors: Node2D = %Actors
@@ -114,7 +109,7 @@ func _on_actor_collided(actor1: Actor, state1: PhysicsDirectBodyState2D, actor2:
 	
 
 func _on_actor_rung_out(actor: Actor) -> void:
-	if Game.is_changing_scenes:
+	if Game.is_changing_scenes or actor.is_invincible:
 		return
 	actor.die()
 	do_hitstop(1.0)

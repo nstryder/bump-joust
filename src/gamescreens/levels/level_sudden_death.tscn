@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c3bopdykmd1tg"]
+
+[ext_resource type="PackedScene" uid="uid://dpdq1iv6nrbtw" path="res://src/gamescreens/battle_arena.tscn" id="1_70qt2"]
+[ext_resource type="Script" uid="uid://ec01t4pv7uga" path="res://src/gamescreens/levels/level_sudden_death.gd" id="2_5gmgn"]
+[ext_resource type="PackedScene" uid="uid://b8txnmj1pj2vr" path="res://src/gamescreens/stages/stage_sudden_death.tscn" id="2_yybcg"]
+[ext_resource type="PackedScene" uid="uid://cilbel8wao700" path="res://src/actors/killer.tscn" id="4_34oud"]
+
+[node name="LevelSuddenDeath" unique_id=1490462069 instance=ExtResource("1_70qt2")]
+script = ExtResource("2_5gmgn")
+bump_intensity = 2.0
+
+[node name="StageSuddenDeath" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("2_yybcg")]
+
+[node name="Killer" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=500541823 instance=ExtResource("4_34oud")]
+position = Vector2(0, -124)
+acceleration = 4000.0

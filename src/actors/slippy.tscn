@@ -13,6 +13,7 @@ slip_lifetime = 2.0
 slip_damping = 0.0
 _slip_duration = 1.0
 _slip_cooldown_duration = 1.0
+archetype = 2
 
 [node name="Sprite2D" parent="." index="0" unique_id=170752210]
 modulate = Color(0, 0.6500001, 1, 1)

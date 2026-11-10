@@ -18,6 +18,7 @@ bounce_active_duration = 0.6
 bounce_cooldown = 1.0
 landing_radius_mod = 1.0
 landing_force_mod = 1.0
+archetype = 1
 
 [node name="Sprite2D" parent="." index="0" unique_id=170752210]
 modulate = Color(0.116666794, 1, 0, 1)

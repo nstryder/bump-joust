@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cilbel8wao700"]
+
+[ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_bq00x"]
+[ext_resource type="Script" uid="uid://dwutf73gbflq0" path="res://src/actors/killer.gd" id="2_8335e"]
+[ext_resource type="Texture2D" uid="uid://cdf2q5oi6efh8" path="res://assets/gfx/sprites/environmental/spheres.png" id="2_fcfqx"]
+[ext_resource type="PackedScene" uid="uid://cuf05tcxeheic" path="res://src/actors/cpu_controllers/killer_cpu_control.tscn" id="4_r782i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcfqx"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(0, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8335e"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(16, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r782i"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(32, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgjy7"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(48, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iffkn"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(64, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o7i6"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nflow"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(96, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6mqf"]
+atlas = ExtResource("2_fcfqx")
+region = Rect2(112, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dgjy7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcfqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8335e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r782i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgjy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iffkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o7i6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nflow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6mqf")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r782i"]
+radius = 8.0
+
+[node name="Killer" unique_id=500541823 instance=ExtResource("1_bq00x")]
+linear_damp_mode = 1
+linear_damp = 20.0
+script = ExtResource("2_8335e")
+acceleration = 5000.0
+archetype = 3
+knockback_give_modifier = 3.0
+controller = 2
+is_invincible = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1060817921]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_dgjy7")
+autoplay = "default"
+frame = 2
+frame_progress = 0.4609639
+
+[node name="Sprite2D" parent="." index="1" unique_id=170752210]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="2" unique_id=1203170032]
+visible = true
+shape = SubResource("CircleShape2D_r782i")
+
+[node name="KillerCpuControl" parent="." index="8" unique_id=1650306333 instance=ExtResource("4_r782i")]

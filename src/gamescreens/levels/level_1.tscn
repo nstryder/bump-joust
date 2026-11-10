@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ngp1y6emdbyq"]
+
+[ext_resource type="PackedScene" uid="uid://dpdq1iv6nrbtw" path="res://src/gamescreens/battle_arena.tscn" id="1_3o5dw"]
+[ext_resource type="PackedScene" uid="uid://brhnn6fgp67bk" path="res://src/gamescreens/stages/stage_rectangle.tscn" id="2_q85iv"]
+
+[node name="Level1" unique_id=1490462069 instance=ExtResource("1_3o5dw")]
+
+[node name="StageRectangle" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("2_q85iv")]
+
+[node name="LevelTimer" parent="." index="3" unique_id=677703288]
+wait_time = 5.0

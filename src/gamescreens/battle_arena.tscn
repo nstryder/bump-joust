@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://dpdq1iv6nrbtw"]
 
-[ext_resource type="PackedScene" uid="uid://bm6bbakmfe0yg" path="res://src/gamescreens/arena.tscn" id="1_mj7mn"]
-[ext_resource type="Script" uid="uid://dfphalb55445v" path="res://src/gamescreens/main_arena.gd" id="2_1joje"]
-[ext_resource type="PackedScene" uid="uid://brhnn6fgp67bk" path="res://src/gamescreens/stages/stage_rectangle.tscn" id="2_fk8ua"]
+[ext_resource type="PackedScene" uid="uid://bm6bbakmfe0yg" path="res://src/gamescreens/arena.tscn" id="1_pa7xh"]
+[ext_resource type="Script" uid="uid://dfphalb55445v" path="res://src/gamescreens/battle_arena.gd" id="2_pa7xh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lwrwe"]
 font_size = 64
@@ -10,7 +9,7 @@ outline_size = 16
 outline_color = Color(0.15773076, 0.15773079, 0.15773073, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ktohr"]
-font_size = 512
+font_size = 384
 outline_size = 64
 outline_color = Color(0.19184908, 0.19184911, 0.19184908, 1)
 
@@ -70,20 +69,56 @@ tracks/1/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_pa7xh"]
+resource_name = "sudden_death"
+length = 5.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Countdown:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 2.5, 3.5333333, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["SUDDEN
+DEATH", "3", "2", "1", "GO!"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Countdown:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wxagg"]
 _data = {
 &"RESET": SubResource("Animation_1joje"),
-&"begin": SubResource("Animation_gbacc")
+&"begin": SubResource("Animation_gbacc"),
+&"sudden_death": SubResource("Animation_pa7xh")
 }
 
-[node name="MainArena" unique_id=1490462069 instance=ExtResource("1_mj7mn")]
-script = ExtResource("2_1joje")
+[sub_resource type="LabelSettings" id="LabelSettings_od81e"]
+font_size = 32
 
-[node name="StageRectangle" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("2_fk8ua")]
+[node name="BattleArena" unique_id=1490462069 instance=ExtResource("1_pa7xh")]
+script = ExtResource("2_pa7xh")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="3" unique_id=2000774958]
+[node name="LevelTimer" type="Timer" parent="." index="3" unique_id=677703288]
+wait_time = 20.0
+one_shot = true
 
-[node name="Message" type="Label" parent="CanvasLayer" index="0" unique_id=1874353721]
+[node name="UI" type="CanvasLayer" parent="." index="4" unique_id=2000774958]
+
+[node name="Message" type="Label" parent="UI" index="0" unique_id=1874353721]
 unique_name_in_owner = true
 anchors_preset = 7
 anchor_left = 0.5
@@ -99,7 +134,7 @@ text = "You win!"
 label_settings = SubResource("LabelSettings_lwrwe")
 horizontal_alignment = 1
 
-[node name="Countdown" type="Label" parent="CanvasLayer" index="1" unique_id=358983008]
+[node name="Countdown" type="Label" parent="UI" index="1" unique_id=358983008]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,7 +151,32 @@ text = "3"
 label_settings = SubResource("LabelSettings_ktohr")
 horizontal_alignment = 1
 
-[node name="CountdownPlayer" type="AnimationPlayer" parent="CanvasLayer" index="2" unique_id=1309288238]
+[node name="CountdownPlayer" type="AnimationPlayer" parent="UI" index="2" unique_id=1309288238]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_wxagg")
-speed_scale = 5.0
+
+[node name="PanelContainer" type="VBoxContainer" parent="UI" index="3" unique_id=1810412141]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 16.0
+offset_right = 120.0
+offset_bottom = 89.0
+grow_horizontal = 2
+
+[node name="TimerProgress" type="ProgressBar" parent="UI/PanelContainer" index="0" unique_id=1132408471]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 24)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="TimeDisplay" type="Label" parent="UI/PanelContainer" index="1" unique_id=1904981577]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Time: 20.00 s"
+label_settings = SubResource("LabelSettings_od81e")
+horizontal_alignment = 1
+
+[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
