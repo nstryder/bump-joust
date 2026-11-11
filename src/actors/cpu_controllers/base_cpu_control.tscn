@@ -4,3 +4,8 @@
 
 [node name="BaseCpuControl" type="Node2D" unique_id=1650306333]
 script = ExtResource("1_ryrhw")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=83147028]
+path_desired_distance = 16.0
+target_desired_distance = 8.0
+path_max_distance = 128.0

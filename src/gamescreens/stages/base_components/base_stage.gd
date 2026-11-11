@@ -5,6 +5,8 @@ signal actor_rung_out(actor: Actor)
 
 @onready var shadows: Node2D = %Shadows
 @onready var spawn_points: Node2D = $SpawnPoints
+@onready var arena_collision_polygon: CollisionPolygon2D = %ArenaCollisionPolygon
+@onready var arena_mask: Polygon2D = %ArenaMask
 
 
 func get_spawn_point(index: int) -> Vector2:

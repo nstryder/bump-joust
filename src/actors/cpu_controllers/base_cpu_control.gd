@@ -3,11 +3,20 @@ class_name BaseCpuControl
 
 
 @onready var actor: Actor = get_parent()
+@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 
 
 func _ready() -> void:
+	set_process(false)
 	if not actor.controller == Actor.Controller.CPU:
 		queue_free()
+	actor_setup.call_deferred()
+
+
+func actor_setup() -> void:
+	# Wait for the first physics frame so the NavigationServer can sync.
+	await get_tree().physics_frame
+	set_process(true)
 
 
 func _process(_delta: float) -> void:
@@ -16,7 +25,9 @@ func _process(_delta: float) -> void:
 	actor.input_direction = Vector2.ZERO
 	var closest_target: Actor = _get_closest_target()
 	if closest_target:
-		actor.input_direction = global_position.direction_to(closest_target.global_position)
+		var target_position: Vector2 = closest_target.global_position
+		navigation_agent_2d.target_position = target_position
+		actor.input_direction = global_position.direction_to(navigation_agent_2d.get_next_path_position())
 
 
 func _get_closest_target() -> Actor:
