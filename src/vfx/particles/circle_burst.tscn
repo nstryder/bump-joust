@@ -1,26 +1,32 @@
 [gd_scene format=3 uid="uid://bih6hktyc36cn"]
 
-[ext_resource type="Texture2D" uid="uid://cp1qfk54s2yb8" path="res://assets/vfx/circle_16.svg" id="1_31ptg"]
+[ext_resource type="Texture2D" uid="uid://cpi2ky17blni" path="res://assets/gfx/textures/trace_07.png" id="1_s4p01"]
 [ext_resource type="Script" uid="uid://brqbbx2tpedly" path="res://src/vfx/particles/circle_burst.gd" id="2_s4p01"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rbv24"]
+blend_mode = 1
 
 [sub_resource type="Curve" id="Curve_ktohr"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.8945162, 0.0, 0, 0]
 point_count = 2
 
 [node name="CircleBurst" type="CPUParticles2D" unique_id=1297313251]
+material = SubResource("CanvasItemMaterial_rbv24")
 emitting = false
-amount = 2
-texture = ExtResource("1_31ptg")
+amount = 6
+texture = ExtResource("1_s4p01")
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
-fixed_fps = 60
+particle_flag_align_y = true
+direction = Vector2(0, -1)
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 62.0
-initial_velocity_max = 120.0
+initial_velocity_min = 100.0
+initial_velocity_max = 300.0
 damping_min = 100.0
 damping_max = 100.0
-scale_amount_min = 0.8
+scale_amount_min = 0.01
+scale_amount_max = 0.05
 scale_amount_curve = SubResource("Curve_ktohr")
 script = ExtResource("2_s4p01")

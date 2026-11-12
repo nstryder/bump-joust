@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dn0nrv0s33fwb"]
+
+[ext_resource type="Texture2D" uid="uid://c6y38gqp7ybvt" path="res://assets/gfx/textures/symbol_02.png" id="1_rbv24"]
+[ext_resource type="Script" uid="uid://jet5l8u61qfe" path="res://src/vfx/particles/ring_out_particles.gd" id="2_6qr8w"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rbv24"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_s4p01"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_bdhl4"]
+offsets = PackedFloat32Array(0, 0.15993269, 0.33501688, 0.5168351, 0.6818182, 0.84343433, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0.86, 0.86, 0.13760002, 1, 0.29304, 0.88, 0.2728, 1, 0, 1, 0.98333335, 1, 0.1333332, 0, 1, 1, 0.9499998, 0, 1, 1, 1, 0, 0.016666412, 1)
+
+[node name="RingOutParticles" type="CPUParticles2D" unique_id=3019798]
+material = SubResource("CanvasItemMaterial_rbv24")
+emitting = false
+texture = ExtResource("1_rbv24")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+particle_flag_align_y = true
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 500.0
+damping_min = 800.0
+damping_max = 800.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_s4p01")
+color_ramp = SubResource("Gradient_bdhl4")
+color_initial_ramp = SubResource("Gradient_bdhl4")
+script = ExtResource("2_6qr8w")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

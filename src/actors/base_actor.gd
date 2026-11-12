@@ -67,9 +67,16 @@ func collide(state: PhysicsDirectBodyState2D) -> void:
 func die() -> void:
 	if is_queued_for_deletion() or is_invincible:
 		return
+
 	var explosion := Explosion.construct()
 	explosion.global_position = global_position
 	get_tree().root.add_child(explosion)
+
+	var ring_out_particles := RingOutParticles.construct(-linear_velocity.normalized())
+	ring_out_particles.global_position = global_position
+	get_tree().root.add_child(ring_out_particles)
+	ring_out_particles.restart()
+
 	Audio.play_2d(sfx_death, global_position)
 	if shadow:
 		shadow.queue_free()

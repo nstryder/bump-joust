@@ -96,9 +96,9 @@ func _on_actor_collided(actor1: Actor, state1: PhysicsDirectBodyState2D, actor2:
 
 		# Show hitsparks
 		var bump_vfx := ParticleCircleBurst.construct()
-		add_child(bump_vfx)
 		bump_vfx.global_position = collided_at
-		bump_vfx.emitting = true
+		add_child(bump_vfx)
+		bump_vfx.restart()
 
 		# Determine hitstop based on intensity of collision
 		var max_bump_force: float = maxf(bump_force1, bump_force2)
