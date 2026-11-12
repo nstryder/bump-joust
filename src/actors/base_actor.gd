@@ -31,11 +31,15 @@ var last_nonzero_x: float = 1.0
 @onready var bump_sfx: AudioStreamPlayer2D = $BumpSfx
 @onready var shadow_remote: RemoteTransform2D = $ShadowRemote
 @onready var shadow: Shadow
+@onready var player_indicator: Sprite2D = $PlayerIndicator
+@onready var player_arrow: Sprite2D = $PlayerArrow
 
 
 func _ready() -> void:
 	if not controller == Controller.PLAYER:
 		set_process_unhandled_key_input(false)
+		player_indicator.hide()
+		player_arrow.hide()
 	animation_playback.travel("walk")
 
 
@@ -47,6 +51,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		if input_direction.x:
 			last_nonzero_x = input_direction.x
 		animation_tree["parameters/walk/BlendSpace2D/blend_position"] = last_nonzero_direction + Vector2(last_nonzero_x, 0)
+		player_indicator.rotation = Vector2.UP.angle_to(input_direction)
 
 	collide(state)
 
