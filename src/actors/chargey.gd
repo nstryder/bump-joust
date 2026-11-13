@@ -26,6 +26,7 @@ var is_charging_ready: bool = false
 @onready var charge_release_sfx: AudioStreamPlayer2D = $ChargeReleaseSfx
 @onready var charge_vfx: AnimatedSprite2D = $ChargeVfx
 @onready var charge_ready_vfx: AnimatedSprite2D = $ChargeReadyVfx
+@onready var charge_active_particles: CPUParticles2D = $ChargeActiveParticles
 
 
 func _ready() -> void:
@@ -51,6 +52,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	var extra_speed_modifier: float = linear_velocity.length() / (acceleration / linear_damp)
 	animation_tree["parameters/walk/TimeScale/scale"] = 1.0 + extra_speed_modifier
+	var ability_percent: float = (1 - (charge_startup_timer.time_left / charge_startup_time)) * 100
+	ability_cooldown_display.value = ability_percent
 	
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
@@ -70,16 +73,19 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		charge_press_sfx.play()
 		charge_vfx.play("startup")
 		charge_vfx.show()
+		ability_cooldown_display.show()
 
 	if is_charging_released:
 		is_charging_released = false
 		charge_vfx.hide()
+		ability_cooldown_display.hide()
 		if is_charging_ready:
 			is_charging_ready = false
 			charge_active_timer.start()
 			is_charging_active = true
 			state.apply_central_impulse(last_nonzero_direction * charge_launch_accel)
 			charge_release_sfx.play()
+			charge_active_particles.emitting = true
 		else:
 			charge_startup_timer.stop()
 	
@@ -98,6 +104,7 @@ func collide(state: PhysicsDirectBodyState2D) -> void:
 
 func _on_charge_active_timer_timeout() -> void:
 	is_charging_active = false
+	charge_active_particles.emitting = false
 
 
 func _on_charge_startup_timer_timeout() -> void:
@@ -106,3 +113,4 @@ func _on_charge_startup_timer_timeout() -> void:
 	charge_ready_vfx.show()
 	charge_ready_vfx.play("default")
 	is_charging_ready = true
+	ability_cooldown_display.hide()

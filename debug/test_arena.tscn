@@ -11,7 +11,7 @@
 
 [node name="Chargey" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=500541823 instance=ExtResource("3_iakeo")]
 position = Vector2(-144, 76)
-controller = 2
+controller = 1
 
 [node name="Bouncy" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="1" unique_id=2058037763 instance=ExtResource("4_wht3k")]
-controller = 1
+controller = 2

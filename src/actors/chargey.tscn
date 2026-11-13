@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dgbi82jvbgrnh" path="res://assets/vfx/impact.png" id="5_0wgis"]
 [ext_resource type="AudioStream" uid="uid://blfn2qfyyj6hk" path="res://assets/audio/sfx/Powerup__001.wav" id="5_1pj2p"]
 [ext_resource type="AudioStream" uid="uid://cqjxx2i65w4ho" path="res://assets/audio/sfx/Pickup__008.wav" id="6_5mkqj"]
+[ext_resource type="Texture2D" uid="uid://xmhivposciq4" path="res://assets/vfx/sparkle_sheet.png" id="6_5n1es"]
 [ext_resource type="AudioStream" uid="uid://bdtr1on81t1s0" path="res://assets/audio/sfx/Snare__005.wav" id="6_ijkec"]
 [ext_resource type="PackedScene" uid="uid://dmlvnkc07qd1k" path="res://src/actors/cpu_controllers/charge_cpu_control.tscn" id="10_0wgis"]
 
@@ -574,6 +575,20 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0wgis"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_c6gbi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_5n1es"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
 [node name="Chargey" unique_id=500541823 instance=ExtResource("1_3e2b4")]
 script = ExtResource("1_kamsm")
 acceleration = 2000.0
@@ -598,32 +613,47 @@ sprite_frames = SubResource("SpriteFrames_vvkta")
 frame = 8
 frame_progress = 1.0
 
-[node name="Sprite2D" parent="." index="4" unique_id=170752210]
+[node name="ChargeActiveParticles" type="CPUParticles2D" parent="." index="2" unique_id=1276279118]
+material = SubResource("CanvasItemMaterial_0wgis")
+emitting = false
+texture = ExtResource("6_5n1es")
+lifetime = 0.2
+direction = Vector2(0, -1)
+spread = 30.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.05
+scale_amount_max = 0.05
+scale_amount_curve = SubResource("Curve_c6gbi")
+color_ramp = SubResource("Gradient_5n1es")
+anim_offset_max = 1.0
+
+[node name="Sprite2D" parent="." index="6" unique_id=170752210]
 modulate = Color(1, 0, 0, 1)
 
-[node name="BigBumpSfx" type="AudioStreamPlayer2D" parent="." index="12" unique_id=1497532884]
+[node name="BigBumpSfx" type="AudioStreamPlayer2D" parent="." index="13" unique_id=1497532884]
 stream = ExtResource("4_hawlp")
 bus = &"SFX"
 
-[node name="ChargePressSfx" type="AudioStreamPlayer2D" parent="." index="13" unique_id=1012935223]
+[node name="ChargePressSfx" type="AudioStreamPlayer2D" parent="." index="14" unique_id=1012935223]
 stream = ExtResource("5_1pj2p")
 bus = &"SFX"
 
-[node name="ChargeReadySfx" type="AudioStreamPlayer2D" parent="." index="14" unique_id=616971000]
+[node name="ChargeReadySfx" type="AudioStreamPlayer2D" parent="." index="15" unique_id=616971000]
 stream = ExtResource("6_5mkqj")
 bus = &"SFX"
 
-[node name="ChargeReleaseSfx" type="AudioStreamPlayer2D" parent="." index="15" unique_id=1693633790]
+[node name="ChargeReleaseSfx" type="AudioStreamPlayer2D" parent="." index="16" unique_id=1693633790]
 stream = ExtResource("6_ijkec")
 bus = &"SFX"
 
-[node name="ChargeActiveTimer" type="Timer" parent="." index="16" unique_id=772791516]
+[node name="ChargeActiveTimer" type="Timer" parent="." index="17" unique_id=772791516]
 one_shot = true
 
-[node name="ChargeStartupTimer" type="Timer" parent="." index="17" unique_id=1657652523]
+[node name="ChargeStartupTimer" type="Timer" parent="." index="18" unique_id=1657652523]
 one_shot = true
 
-[node name="ChargeCpuControl" parent="." index="18" unique_id=1650306333 instance=ExtResource("10_0wgis")]
+[node name="ChargeCpuControl" parent="." index="19" unique_id=1650306333 instance=ExtResource("10_0wgis")]
 
 [connection signal="timeout" from="ChargeActiveTimer" to="." method="_on_charge_active_timer_timeout"]
 [connection signal="timeout" from="ChargeStartupTimer" to="." method="_on_charge_startup_timer_timeout"]

@@ -51,7 +51,7 @@ func do_hitstop(duration: float) -> void:
 	# sample_baked returns y for input x (0.0 to 1.0)
 	# so we need to constantly feed it a value that goes from 0 to 1 (time)
 	# and use that output as our engine timescale
-	tween.tween_method(_interpolate_hitstop, 0, 1, duration)
+	tween.tween_method(_interpolate_hitstop, 0, 1, minf(1.0, duration))
 
 
 func reset_collide_flag() -> void:
