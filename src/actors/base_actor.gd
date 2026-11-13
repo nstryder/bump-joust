@@ -33,6 +33,7 @@ var last_nonzero_x: float = 1.0
 @onready var shadow: Shadow
 @onready var player_indicator: Sprite2D = $PlayerIndicator
 @onready var player_arrow: Sprite2D = $PlayerArrow
+@onready var ability_cooldown_display: TextureProgressBar = $AbilityCooldownDisplay
 
 
 func _ready() -> void:

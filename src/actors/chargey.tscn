@@ -598,32 +598,32 @@ sprite_frames = SubResource("SpriteFrames_vvkta")
 frame = 8
 frame_progress = 1.0
 
-[node name="Sprite2D" parent="." index="2" unique_id=170752210]
+[node name="Sprite2D" parent="." index="4" unique_id=170752210]
 modulate = Color(1, 0, 0, 1)
 
-[node name="BigBumpSfx" type="AudioStreamPlayer2D" parent="." index="8" unique_id=1497532884]
+[node name="BigBumpSfx" type="AudioStreamPlayer2D" parent="." index="12" unique_id=1497532884]
 stream = ExtResource("4_hawlp")
 bus = &"SFX"
 
-[node name="ChargePressSfx" type="AudioStreamPlayer2D" parent="." index="9" unique_id=1012935223]
+[node name="ChargePressSfx" type="AudioStreamPlayer2D" parent="." index="13" unique_id=1012935223]
 stream = ExtResource("5_1pj2p")
 bus = &"SFX"
 
-[node name="ChargeReadySfx" type="AudioStreamPlayer2D" parent="." index="10" unique_id=616971000]
+[node name="ChargeReadySfx" type="AudioStreamPlayer2D" parent="." index="14" unique_id=616971000]
 stream = ExtResource("6_5mkqj")
 bus = &"SFX"
 
-[node name="ChargeReleaseSfx" type="AudioStreamPlayer2D" parent="." index="11" unique_id=1693633790]
+[node name="ChargeReleaseSfx" type="AudioStreamPlayer2D" parent="." index="15" unique_id=1693633790]
 stream = ExtResource("6_ijkec")
 bus = &"SFX"
 
-[node name="ChargeActiveTimer" type="Timer" parent="." index="12" unique_id=772791516]
+[node name="ChargeActiveTimer" type="Timer" parent="." index="16" unique_id=772791516]
 one_shot = true
 
-[node name="ChargeStartupTimer" type="Timer" parent="." index="13" unique_id=1657652523]
+[node name="ChargeStartupTimer" type="Timer" parent="." index="17" unique_id=1657652523]
 one_shot = true
 
-[node name="ChargeCpuControl" parent="." index="15" unique_id=1650306333 instance=ExtResource("10_0wgis")]
+[node name="ChargeCpuControl" parent="." index="18" unique_id=1650306333 instance=ExtResource("10_0wgis")]
 
 [connection signal="timeout" from="ChargeActiveTimer" to="." method="_on_charge_active_timer_timeout"]
 [connection signal="timeout" from="ChargeStartupTimer" to="." method="_on_charge_startup_timer_timeout"]

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cpa3c1njodgpa"]
+
+[ext_resource type="Texture2D" uid="uid://xmhivposciq4" path="res://assets/vfx/sparkle_sheet.png" id="1_kmyd4"]
+[ext_resource type="Script" uid="uid://tkn1w5fpfs7" path="res://src/vfx/particles/landing_particles.gd" id="2_5qffg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lwrwe"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_ktohr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="LandingParticles" type="CPUParticles2D" unique_id=1795929236]
+top_level = true
+material = SubResource("CanvasItemMaterial_lwrwe")
+emitting = false
+texture = ExtResource("1_kmyd4")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+damping_min = 600.0
+damping_max = 600.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_ktohr")
+anim_offset_max = 1.0
+script = ExtResource("2_5qffg")

@@ -29,6 +29,8 @@ var _tween: Tween
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var bounce_cooldown_timer: Timer = $BounceCooldownTimer
+@onready var sfx_jump: AudioStreamPlayer2D = $SfxJump
+@onready var sfx_land: AudioStreamPlayer2D = $SfxLand
 
 
 func _ready() -> void:
@@ -46,6 +48,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	_is_ability_pressed = event.is_action_pressed("ability")
 
 
+func _process(_delta: float) -> void:
+	var cooldown_percent: float = (1 - (bounce_cooldown_timer.time_left / bounce_cooldown)) * 100
+	ability_cooldown_display.value = cooldown_percent
+
+
 func _start_sprite_jump() -> void:
 	if _tween:
 		_tween.kill()
@@ -56,6 +63,20 @@ func _start_sprite_jump() -> void:
 
 func sprite_jump(curve_x: float) -> void:
 	sprite.position.y = bounce_trajectory.sample_baked(curve_x) * -bounce_height
+
+
+func spawn_jump_particles() -> void:
+	var particles := JumpParticles.construct()
+	particles.global_position = global_position
+	add_child(particles)
+	particles.restart()
+
+
+func spawn_landing_particles() -> void:
+	var particles := LandingParticles.construct()
+	particles.global_position = global_position
+	add_child(particles)
+	particles.restart()
 
 
 # Both layer and mask must be toggled
@@ -78,6 +99,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if _is_ability_pressed and _bounce_state == BounceState.NONE:
 		_is_ability_pressed = false
 		_bounce_state = BounceState.ACTIVE
+		sfx_jump.play()
+		spawn_jump_particles()
 		_start_sprite_jump()
 		toggle_collision(false)
 
@@ -90,11 +113,15 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _on_bounce_tween_finished() -> void:
 	_bounce_state = BounceState.COOLDOWN
 	bounce_cooldown_timer.start(bounce_cooldown)
+	ability_cooldown_display.show()
 	toggle_collision(true)
+	sfx_land.play()
 	var landing_force := LandingForce.construct(self, landing_force_mod, landing_radius_mod)
 	add_child(landing_force)
 	landing_force.global_position = global_position
+	spawn_landing_particles()
 	
 
 func _on_bounce_cooldown_timer_timeout() -> void:
 	_bounce_state = BounceState.NONE
+	ability_cooldown_display.hide()

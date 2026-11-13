@@ -1,18 +1,17 @@
 [gd_scene format=3 uid="uid://58f4y1hvw006"]
 
 [ext_resource type="PackedScene" uid="uid://bm6bbakmfe0yg" path="res://src/gamescreens/arena.tscn" id="1_b7d2k"]
-[ext_resource type="PackedScene" uid="uid://bt20ali5idptv" path="res://src/gamescreens/stages/stage_snake.tscn" id="2_5e2fx"]
+[ext_resource type="PackedScene" uid="uid://brhnn6fgp67bk" path="res://src/gamescreens/stages/stage_rectangle.tscn" id="2_sshdc"]
 [ext_resource type="PackedScene" uid="uid://devg3o5en8yjo" path="res://src/actors/chargey.tscn" id="3_iakeo"]
-[ext_resource type="PackedScene" uid="uid://dw3pb2s2qtrpk" path="res://src/actors/slippy.tscn" id="4_sshdc"]
+[ext_resource type="PackedScene" uid="uid://bw5a4onwkgd1" path="res://src/actors/bouncy.tscn" id="4_wht3k"]
 
 [node name="TestArena" unique_id=1490462069 instance=ExtResource("1_b7d2k")]
 
-[node name="StageSnake" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("2_5e2fx")]
+[node name="StageRectangle" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("2_sshdc")]
 
 [node name="Chargey" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=500541823 instance=ExtResource("3_iakeo")]
-position = Vector2(-288, 68)
-controller = 1
-
-[node name="Slippy" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="1" unique_id=1969250752 instance=ExtResource("4_sshdc")]
-position = Vector2(-288, -60)
+position = Vector2(-144, 76)
 controller = 2
+
+[node name="Bouncy" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="1" unique_id=2058037763 instance=ExtResource("4_wht3k")]
+controller = 1

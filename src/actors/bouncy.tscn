@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_v7w1x"]
 [ext_resource type="Script" uid="uid://fpiu6i3mtl4q" path="res://src/actors/bouncy.gd" id="2_bqlqi"]
 [ext_resource type="PackedScene" uid="uid://cqk7orms586us" path="res://src/actors/cpu_controllers/bouncey_cpu_control.tscn" id="3_1j2kl"]
+[ext_resource type="AudioStream" uid="uid://soogvk3sajmx" path="res://assets/audio/sfx/Jump__004.wav" id="4_omfe2"]
+[ext_resource type="AudioStream" uid="uid://cqu0tj6c2k0v4" path="res://assets/audio/sfx/Jump__010.wav" id="5_k8u1p"]
 
 [sub_resource type="Curve" id="Curve_bqlqi"]
 _data = [Vector2(0, 0), 0.0, 5.0, 0, 0, Vector2(0.49957883, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
@@ -20,12 +22,23 @@ landing_radius_mod = 1.0
 landing_force_mod = 1.0
 archetype = 1
 
-[node name="Sprite2D" parent="." index="0" unique_id=170752210]
+[node name="Sprite2D" parent="." index="3" unique_id=170752210]
 modulate = Color(0.116666794, 1, 0, 1)
 
-[node name="BounceCooldownTimer" type="Timer" parent="." index="7" unique_id=1326797947]
+[node name="AnimationTree" parent="." index="6" unique_id=1359491482]
+parameters/walk/BlendSpace2D/blend_position = Vector2(0.21224046, -0.47558403)
+
+[node name="BounceCooldownTimer" type="Timer" parent="." index="10" unique_id=1326797947]
 one_shot = true
 
-[node name="BounceyCpuControl" parent="." index="8" unique_id=1650306333 instance=ExtResource("3_1j2kl")]
+[node name="BounceyCpuControl" parent="." index="11" unique_id=1650306333 instance=ExtResource("3_1j2kl")]
+
+[node name="SfxJump" type="AudioStreamPlayer2D" parent="." index="12" unique_id=520313497]
+stream = ExtResource("4_omfe2")
+bus = &"SFX"
+
+[node name="SfxLand" type="AudioStreamPlayer2D" parent="." index="13" unique_id=514748033]
+stream = ExtResource("5_k8u1p")
+bus = &"SFX"
 
 [connection signal="timeout" from="BounceCooldownTimer" to="." method="_on_bounce_cooldown_timer_timeout"]
