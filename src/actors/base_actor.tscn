@@ -104,6 +104,36 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_jan0r"]
+resource_name = "twirl"
+length = 0.2500041741173714
+loop_mode = 1
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(2, 1), Vector2i(0, 2), Vector2i(2, 3), Vector2i(2, 3), Vector2i(0, 2), Vector2i(2, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_n22y8"]
 resource_name = "walk-down-left"
 length = 0.7500041890185326
@@ -287,6 +317,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_of1gy"]
 _data = {
 &"RESET": SubResource("Animation_kamsm"),
+&"twirl": SubResource("Animation_jan0r"),
 &"walk-down-left": SubResource("Animation_n22y8"),
 &"walk-down-right": SubResource("Animation_hawlp"),
 &"walk-left": SubResource("Animation_cgkol"),
@@ -294,6 +325,9 @@ _data = {
 &"walk-up-left": SubResource("Animation_ijkec"),
 &"walk-up-right": SubResource("Animation_5mkqj")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8t8c2"]
+animation = &"twirl"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kmj4b"]
 animation = &"walk-down-right"
@@ -346,8 +380,10 @@ node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"BlendSpace2D"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8t8c2"]
 states/Start/position = Vector2(155, 86.499954)
+states/twirl/node = SubResource("AnimationNodeAnimation_8t8c2")
+states/twirl/position = Vector2(617.00006, 100.43749)
 states/walk/node = SubResource("AnimationNodeBlendTree_vvkta")
-states/walk/position = Vector2(478.5, 99.25001)
+states/walk/position = Vector2(405.49997, 86.68748)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lwrwe"]
 streams_count = 5

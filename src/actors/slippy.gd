@@ -20,7 +20,7 @@ var ability_is_passive: bool = true
 var _is_ability_pressed: bool = false
 
 signal slip_state_changed(value: SlipState)
-var slip_state := SlipState.ACTIVE:
+var slip_state := SlipState.NONE:
 	set(value):
 		slip_state = value
 		slip_state_changed.emit(value)
@@ -28,6 +28,8 @@ var slip_state := SlipState.ACTIVE:
 @onready var _slip_timer: Timer = $SlipTimer
 @onready var _slip_cooldown: Timer = $SlipCooldown
 @onready var _slip_interval_timer: Timer = $SlipIntervalTimer
+@onready var sfx_slip: AudioStreamPlayer2D = $SfxSlip
+@onready var slip_particles: CPUParticles2D = $SlipParticles
 
 
 func _ready() -> void:
@@ -46,6 +48,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	_is_ability_pressed = event.is_action_pressed("ability")
 
 
+func _process(_delta: float) -> void:
+	var cooldown_percent: float = (1 - (_slip_cooldown.time_left / _slip_cooldown_duration)) * 100
+	ability_cooldown_display.value = cooldown_percent
+
+
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	super._integrate_forces(state)
 	if not is_input_enabled:
@@ -53,10 +60,13 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	var final_acceleration: float = acceleration
 
-	if not ability_is_passive and _is_ability_pressed and slip_state == SlipState.NONE:
+	if _is_ability_pressed and slip_state == SlipState.NONE:
 		_is_ability_pressed = false
 		slip_state = SlipState.ACTIVE
 		_slip_timer.start(_slip_duration)
+		sfx_slip.play()
+		slip_particles.emitting = true
+		animation_playback.travel("twirl")
 	
 	if slip_state == SlipState.ACTIVE:
 		final_acceleration = slip_accel
@@ -67,8 +77,12 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _on_slip_timer_timeout() -> void:
 	slip_state = SlipState.COOLDOWN
 	_slip_interval_timer.stop()
+	slip_particles.emitting = false
+	animation_playback.travel("walk")
 	_slip_cooldown.start(_slip_cooldown_duration)
+	ability_cooldown_display.show()
 	
 
 func _on_slip_cooldown_timeout() -> void:
 	slip_state = SlipState.NONE
+	ability_cooldown_display.hide()

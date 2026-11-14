@@ -3,33 +3,63 @@
 [ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_qw11c"]
 [ext_resource type="Script" uid="uid://bp5m42t5sn2q8" path="res://src/actors/slippy.gd" id="2_bxejl"]
 [ext_resource type="PackedScene" uid="uid://d3h64ysmpw76a" path="res://src/actors/cpu_controllers/slippy_cpu_control.tscn" id="3_al7he"]
+[ext_resource type="Texture2D" uid="uid://ckgmqh35dm14i" path="res://assets/gfx/textures/circle_01.png" id="3_jxdw8"]
+[ext_resource type="AudioStream" uid="uid://cewwlf2o5oslm" path="res://assets/audio/sfx/Teleport2_004.wav" id="4_7qi3v"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wht3k"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_7qi3v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_cpvun"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="Slippy" unique_id=500541823 groups=["slip_actor"] instance=ExtResource("1_qw11c")]
 collision_layer = 3
 script = ExtResource("2_bxejl")
 acceleration = 1500.0
-slip_accel = 1500.0
+slip_accel = 4000.0
 slip_lifetime = 2.0
 slip_damping = 0.0
-_slip_duration = 1.0
-_slip_cooldown_duration = 1.0
+_slip_duration = 0.4
+_slip_cooldown_duration = 1.4
 archetype = 2
 
-[node name="Sprite2D" parent="." index="0" unique_id=170752210]
+[node name="SlipParticles" type="CPUParticles2D" parent="." index="0" unique_id=342265660]
+material = SubResource("CanvasItemMaterial_wht3k")
+emitting = false
+texture = ExtResource("3_jxdw8")
+lifetime = 0.2
+direction = Vector2(0, -1)
+spread = 30.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.01
+scale_amount_max = 0.05
+scale_amount_curve = SubResource("Curve_7qi3v")
+color_ramp = SubResource("Gradient_cpvun")
+
+[node name="Sprite2D" parent="." index="4" unique_id=170752210]
 modulate = Color(0, 0.6500001, 1, 1)
 
-[node name="AnimationTree" parent="." index="3" unique_id=1359491482]
+[node name="AnimationTree" parent="." index="7" unique_id=1359491482]
 parameters/walk/BlendSpace2D/blend_position = Vector2(-0.9943081, 0.45859873)
 
-[node name="SlipTimer" type="Timer" parent="." index="7" unique_id=45795919]
+[node name="SlipTimer" type="Timer" parent="." index="11" unique_id=45795919]
 one_shot = true
 
-[node name="SlipCooldown" type="Timer" parent="." index="8" unique_id=1510451132]
+[node name="SlipCooldown" type="Timer" parent="." index="12" unique_id=1510451132]
 one_shot = true
 
-[node name="SlipIntervalTimer" type="Timer" parent="." index="9" unique_id=1391640668]
+[node name="SlipIntervalTimer" type="Timer" parent="." index="13" unique_id=1391640668]
 
-[node name="SlippyCpuControl" parent="." index="10" unique_id=1650306333 instance=ExtResource("3_al7he")]
+[node name="SlippyCpuControl" parent="." index="14" unique_id=1650306333 instance=ExtResource("3_al7he")]
+
+[node name="SfxSlip" type="AudioStreamPlayer2D" parent="." index="15" unique_id=193697199]
+stream = ExtResource("4_7qi3v")
+bus = &"SFX"
 
 [connection signal="timeout" from="SlipTimer" to="." method="_on_slip_timer_timeout"]
 [connection signal="timeout" from="SlipCooldown" to="." method="_on_slip_cooldown_timeout"]

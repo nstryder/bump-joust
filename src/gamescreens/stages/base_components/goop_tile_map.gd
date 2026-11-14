@@ -10,7 +10,7 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	if not slip_actor.slip_state == SlipActor.SlipState.ACTIVE:
+	if not slip_actor.ability_is_passive and slip_actor.slip_state != SlipActor.SlipState.ACTIVE:
 		return
 	var actor_pos: Vector2 = slip_actor.global_position
 	var map_coord: Vector2 = local_to_map(to_local(actor_pos))
