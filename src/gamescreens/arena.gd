@@ -1,6 +1,8 @@
 extends Node2D
 class_name Arena
 
+@export var bgm: AudioStream
+@export var win_sfx: AudioStream
 @export var bump_sfx: AudioStream
 @export var bump_intensity: float = 1.0
 @export var bump_min_intensity: float = 400
@@ -15,11 +17,14 @@ var tween: Tween
 @onready var actors: Node2D = %Actors
 @onready var stage_holder: Node2D = $StageHolder
 @onready var current_stage: Stage = stage_holder.get_child(0)
+@onready var center_point: Marker2D = $CenterPoint
+@onready var camera: Camera2D = $Camera2D
 
 
 func _ready() -> void:
 	setup_all_signals()
 	spawn_all_shadows()
+	Audio.play_bgm(bgm)
 
 
 func setup_all_signals() -> void:

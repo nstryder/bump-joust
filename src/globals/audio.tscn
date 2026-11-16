@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://crj476yarsjl2"]
+
+[ext_resource type="Script" uid="uid://ux00gvfwmt7a" path="res://src/globals/audio.gd" id="1_g1s2c"]
+
+[node name="Audio" type="Node2D" unique_id=2095298431]
+script = ExtResource("1_g1s2c")
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1485647360]
+bus = &"BGM"

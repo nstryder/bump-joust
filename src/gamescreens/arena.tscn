@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bm6bbakmfe0yg"]
 
 [ext_resource type="Script" uid="uid://bfxdb04dx3rn5" path="res://src/gamescreens/arena.gd" id="1_gaerr"]
+[ext_resource type="AudioStream" uid="uid://bskqr6kbl1srj" path="res://assets/audio/sfx/ring_out.wav" id="2_eck33"]
 [ext_resource type="AudioStream" uid="uid://bfji0ckl8g780" path="res://assets/audio/sfx/Punch__001.wav" id="5_5ospc"]
 [ext_resource type="AudioStream" uid="uid://boqaw2hn4xccv" path="res://assets/audio/sfx/Punch__002.wav" id="6_ywmkn"]
 [ext_resource type="AudioStream" uid="uid://74t76nfh7mx7" path="res://assets/audio/sfx/Punch__004.wav" id="7_0xsmf"]
+[ext_resource type="Texture2D" uid="uid://kt37afurdp4f" path="res://assets/gfx/textures/pixelart_starfield_corona.png" id="8_kygoh"]
 [ext_resource type="AudioStream" uid="uid://digh4ob3iivj6" path="res://assets/audio/sfx/Punch__008.wav" id="8_ropfh"]
 [ext_resource type="AudioStream" uid="uid://b4brjmr8yx2t" path="res://assets/audio/sfx/Punch__010.wav" id="9_ojtwx"]
 
@@ -23,8 +25,20 @@ point_count = 2
 [node name="BaseArena" type="Node2D" unique_id=1490462069]
 y_sort_enabled = true
 script = ExtResource("1_gaerr")
+win_sfx = ExtResource("2_eck33")
 bump_sfx = SubResource("AudioStreamRandomizer_b1nx7")
 hitstop_curve = SubResource("Curve_5ospc")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=68230334]
+scroll_scale = Vector2(0.1, 0.1)
+
+[node name="Background" type="Sprite2D" parent="Parallax2D" unique_id=1558996620]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("8_kygoh")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
 
 [node name="StageHolder" type="Node2D" parent="." unique_id=450520773]
 

@@ -14,9 +14,8 @@ func start_countdown() -> void:
 	countdown_player.play("sudden_death")
 
 
-func check_victory() -> void:
+func is_game_won() -> bool:
 	if actors.get_child_count() == 2:
 		var player_survived: bool = actors.get_children().any(func(actor: Actor) -> bool: return actor.controller == Actor.Controller.PLAYER)
-		if player_survived:
-			show_message("You win!")
-			stop_game()
+		return player_survived
+	return false

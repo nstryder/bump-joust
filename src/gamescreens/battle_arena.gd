@@ -66,12 +66,33 @@ func stop_game() -> void:
 	Game.return_to_lobby()
 
 
-func check_victory() -> void:
+func is_game_won() -> bool:
 	if actors.get_child_count() == 1:
 		var candidate: Actor = actors.get_child(0)
-		if candidate.controller == Actor.Controller.PLAYER:
-			show_message("You win!")
-			stop_game()
+		return candidate.controller == Actor.Controller.PLAYER
+	return false
+
+
+func win(kill_cam_position: Vector2) -> void:
+	show_message("You win!")
+	stop_game()
+	Audio.play_2d(win_sfx, kill_cam_position)
+	show_kill_cam(kill_cam_position)
+
+	
+func show_kill_cam(death_position: Vector2) -> void:
+	var cam_tween := create_tween()
+	cam_tween.set_trans(Tween.TRANS_CUBIC)
+	var original_zoom: Vector2 = camera.zoom
+	var original_position: Vector2 = camera.global_position
+	cam_tween.set_ignore_time_scale(true)
+	cam_tween.set_ease(Tween.EASE_OUT)
+	cam_tween.tween_property(camera, "global_position", death_position, 0.2)
+	cam_tween.parallel().tween_property(camera, "zoom", Vector2.ONE * 5, 0.5)
+	cam_tween.tween_interval(1.0)
+	cam_tween.set_ease(Tween.EASE_IN)
+	cam_tween.tween_property(camera, "global_position", original_position, 0.2)
+	cam_tween.parallel().tween_property(camera, "zoom", original_zoom, 0.2)
 
 
 func _on_actor_rung_out(actor: Actor) -> void:
@@ -82,8 +103,11 @@ func _on_actor_rung_out(actor: Actor) -> void:
 		show_message("You lose...")
 		stop_game()
 	else:
+		var killed_position: Vector2 = actor.global_position
 		await get_tree().process_frame
-		check_victory()
+		if is_game_won():
+			win(killed_position)
+
 
 func _on_level_timer_timeout() -> void:
 	game_is_over = true

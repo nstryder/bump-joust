@@ -21,7 +21,7 @@ buses/default_bus_layout="uid://dlhsoj27krkng"
 
 [autoload]
 
-Audio="*uid://ux00gvfwmt7a"
+Audio="*uid://crj476yarsjl2"
 EventBus="*uid://c3i7blwecbeop"
 Game="*uid://cwakbgdrp00u8"
 Shroud="*uid://dvox8cofngluc"

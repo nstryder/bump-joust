@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bm6bbakmfe0yg" path="res://src/gamescreens/arena.tscn" id="1_pa7xh"]
 [ext_resource type="Script" uid="uid://dfphalb55445v" path="res://src/gamescreens/battle_arena.gd" id="2_pa7xh"]
+[ext_resource type="AudioStream" uid="uid://3xsa51ooja78" path="res://assets/audio/bgm/main_theme.ogg" id="3_kogp3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lwrwe"]
 font_size = 64
@@ -111,6 +112,7 @@ font_size = 32
 
 [node name="BattleArena" unique_id=1490462069 instance=ExtResource("1_pa7xh")]
 script = ExtResource("2_pa7xh")
+bgm = ExtResource("3_kogp3")
 
 [node name="LevelTimer" type="Timer" parent="." index="3" unique_id=677703288]
 wait_time = 20.0
@@ -154,6 +156,7 @@ horizontal_alignment = 1
 [node name="CountdownPlayer" type="AnimationPlayer" parent="UI" index="2" unique_id=1309288238]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_wxagg")
+speed_scale = 2.0
 
 [node name="PanelContainer" type="VBoxContainer" parent="UI" index="3" unique_id=1810412141]
 anchors_preset = 5
