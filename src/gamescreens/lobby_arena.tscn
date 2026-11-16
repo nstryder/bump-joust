@@ -12,8 +12,10 @@ script = ExtResource("2_r4sin")
 bgm = ExtResource("3_8n61f")
 
 [node name="StageLobby" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("3_f2pjm")]
+occlusion_enabled = false
 
-[node name="Dummy" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=55444089 instance=ExtResource("5_8n61f")]
+[node name="Dummy" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=55444089 instance=ExtResource("5_8n61f")]
+unique_name_in_owner = true
 position = Vector2(80, 4)
 can_sleep = true
 

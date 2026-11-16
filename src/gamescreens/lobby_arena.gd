@@ -13,7 +13,7 @@ class_name LobbyArena
 var player: Actor
 
 @onready var player_spawn_point: Marker2D = $PlayerSpawnPoint
-@onready var dummy: Actor = $CenterPoint/Actors/Dummy
+@onready var dummy: Actor = %Dummy
 @onready var stairs: Area2D = $Stairs
 
 

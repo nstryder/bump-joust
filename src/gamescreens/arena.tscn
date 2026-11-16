@@ -29,25 +29,28 @@ win_sfx = ExtResource("2_eck33")
 bump_sfx = SubResource("AudioStreamRandomizer_b1nx7")
 hitstop_curve = SubResource("Curve_5ospc")
 
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=68230334]
-scroll_scale = Vector2(0.1, 0.1)
+[node name="CenterPoint" type="Marker2D" parent="." unique_id=745366920]
+position = Vector2(960, 540)
 
-[node name="Background" type="Sprite2D" parent="Parallax2D" unique_id=1558996620]
+[node name="Parallax2D" type="Parallax2D" parent="CenterPoint" unique_id=68230334]
+z_index = -1
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(1920, 1080)
+autoscroll = Vector2(32, 0)
+
+[node name="Background" type="Sprite2D" parent="CenterPoint/Parallax2D" unique_id=1558996620]
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("8_kygoh")
-centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1920, 1080)
 
 [node name="StageHolder" type="Node2D" parent="." unique_id=450520773]
 
-[node name="CenterPoint" type="Marker2D" parent="." unique_id=745366920]
-position = Vector2(960, 540)
-
-[node name="Actors" type="Node2D" parent="CenterPoint" unique_id=348940167]
+[node name="Actors" type="Node2D" parent="." unique_id=348940167]
 unique_name_in_owner = true
 y_sort_enabled = true
+position = Vector2(960, 540)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1384600340]
 position = Vector2(960, 540)

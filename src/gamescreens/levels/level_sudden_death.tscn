@@ -11,8 +11,11 @@ script = ExtResource("2_5gmgn")
 bgm = ExtResource("3_kxn7u")
 bump_intensity = 2.0
 
+[node name="Parallax2D" parent="CenterPoint" parent_id_path=PackedInt32Array(745366920) index="0" unique_id=68230334]
+autoscroll = Vector2(128, 0)
+
 [node name="StageSuddenDeath" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("2_yybcg")]
 
-[node name="Killer" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=500541823 instance=ExtResource("4_34oud")]
-position = Vector2(0, -124)
+[node name="Killer" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=500541823 instance=ExtResource("4_34oud")]
+position = Vector2(0, 36)
 acceleration = 4000.0
