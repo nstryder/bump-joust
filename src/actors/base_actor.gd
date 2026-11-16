@@ -39,9 +39,22 @@ var last_nonzero_x: float = 1.0
 func _ready() -> void:
 	if not controller == Controller.PLAYER:
 		set_process_unhandled_key_input(false)
+		set_process_unhandled_input(false)
 		player_indicator.hide()
 		player_arrow.hide()
 	animation_playback.travel("walk")
+
+
+func _process(_delta: float) -> void:
+	if controller == Controller.PLAYER:
+		control_player_mouse()
+
+
+func control_player_mouse() -> void:
+	if Input.is_action_pressed("mouse_move"):
+		input_direction = global_position.direction_to(get_global_mouse_position())
+	elif Input.is_action_just_released("mouse_move"):
+		input_direction = Vector2.ZERO
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:

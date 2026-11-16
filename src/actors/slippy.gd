@@ -48,7 +48,15 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	_is_ability_pressed = event.is_action_pressed("ability")
 
 
-func _process(_delta: float) -> void:
+func _unhandled_input(event: InputEvent) -> void:
+	if event is not InputEventMouseButton:
+		return
+	
+	_is_ability_pressed = event.is_action_pressed("mouse_ability")
+
+
+func _process(delta: float) -> void:
+	super._process(delta)
 	var cooldown_percent: float = (1 - (_slip_cooldown.time_left / _slip_cooldown_duration)) * 100
 	ability_cooldown_display.value = cooldown_percent
 

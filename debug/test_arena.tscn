@@ -10,13 +10,11 @@
 
 [node name="StageRectangle" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("2_sshdc")]
 
-[node name="Bouncy" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=2058037763 instance=ExtResource("4_wht3k")]
+[node name="Bouncy" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=2058037763 instance=ExtResource("4_wht3k")]
 position = Vector2(112, 4)
-controller = 2
-
-[node name="Slippy" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="1" unique_id=500541823 instance=ExtResource("4_sshdc")]
-position = Vector2(-112, 4)
 controller = 1
 
-[node name="Chargey" parent="CenterPoint/Actors" parent_id_path=PackedInt32Array(348940167) index="2" unique_id=2028390890 instance=ExtResource("3_iakeo")]
-controller = 2
+[node name="Slippy" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="1" unique_id=500541823 instance=ExtResource("4_sshdc")]
+position = Vector2(-112, 4)
+
+[node name="Chargey" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="2" unique_id=2028390890 instance=ExtResource("3_iakeo")]

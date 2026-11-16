@@ -43,13 +43,26 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	var move_actions: Array[String] = ["move_left", "move_right", "move_up", "move_down"]
 	if move_actions.any(event.is_action):
 		input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		get_viewport().set_input_as_handled()
+
 	if event.is_action("ability"):
 		is_charging_pressed = event.is_pressed()
 		is_charging_just_pressed = event.is_pressed()
 		is_charging_released = event.is_released()
+		get_viewport().set_input_as_handled()
 
 
-func _process(_delta: float) -> void:
+func _unhandled_input(event: InputEvent) -> void:
+	if event is not InputEventMouseButton:
+		return
+	
+	is_charging_pressed = event.is_action_pressed("mouse_ability")
+	is_charging_just_pressed = event.is_action_pressed("mouse_ability")
+	is_charging_released = event.is_action_released("mouse_ability")
+		
+
+func _process(delta: float) -> void:
+	super._process(delta)
 	var extra_speed_modifier: float = linear_velocity.length() / (acceleration / linear_damp)
 	animation_tree["parameters/walk/TimeScale/scale"] = 1.0 + extra_speed_modifier
 	var ability_percent: float = (1 - (charge_startup_timer.time_left / charge_startup_time)) * 100

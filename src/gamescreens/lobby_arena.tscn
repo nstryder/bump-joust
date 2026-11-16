@@ -17,7 +17,6 @@ occlusion_enabled = false
 [node name="Dummy" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=55444089 instance=ExtResource("5_8n61f")]
 unique_name_in_owner = true
 position = Vector2(80, 4)
-can_sleep = true
 
 [node name="PlayerSpawnPoint" type="Marker2D" parent="." index="3" unique_id=2106376794]
 position = Vector2(872, 544)
