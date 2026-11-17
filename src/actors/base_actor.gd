@@ -96,27 +96,28 @@ func control_player_mouse() -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	debug_speed.text = "%.0f \n" % (linear_velocity.length() / 10)
 
-	if not input_direction.is_zero_approx():
-		last_nonzero_direction = input_direction
-		if input_direction.x:
-			last_nonzero_x = input_direction.x
-		animation_tree["parameters/walk/BlendSpace2D/blend_position"] = last_nonzero_direction + Vector2(last_nonzero_x, 0)
-		player_indicator.rotation = Vector2.UP.angle_to(input_direction)
+	if is_input_enabled:
+		if not input_direction.is_zero_approx():
+			last_nonzero_direction = input_direction
+			if input_direction.x:
+				last_nonzero_x = input_direction.x
+			animation_tree["parameters/walk/BlendSpace2D/blend_position"] = last_nonzero_direction + Vector2(last_nonzero_x, 0)
+			player_indicator.rotation = Vector2.UP.angle_to(input_direction)
 
-	if is_ability_just_pressed:
-		is_ability_just_pressed = false
-		on_ability_just_pressed(state)
+		if is_ability_just_pressed:
+			is_ability_just_pressed = false
+			on_ability_just_pressed(state)
 
-	if is_ability_just_released:
-		is_ability_just_released = false
-		on_ability_just_released(state)
-	
-	if is_ability_pressed:
-		on_ability_pressed(state)
-	
+		if is_ability_just_released:
+			is_ability_just_released = false
+			on_ability_just_released(state)
+		
+		if is_ability_pressed:
+			on_ability_pressed(state)
+		
 
-	if is_ability_released:
-		on_ability_released(state)
+		if is_ability_released:
+			on_ability_released(state)
 	
 	collide(state)
 
