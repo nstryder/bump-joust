@@ -53,4 +53,7 @@ func _on_actor_rung_out(actor: Actor) -> void:
 
 func _on_stairs_body_entered(body: Node2D) -> void:
 	if body != player: return
+	print("Hello??")
+	if tween and tween.is_running():
+		await tween.finished
 	Game.start_main_game()
