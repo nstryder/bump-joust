@@ -2,6 +2,10 @@ extends RigidBody2D
 class_name Actor
 
 
+# NOTES: 
+# Max speed is determined by accel / damp
+
+
 enum Controller {
 	NONE,
 	PLAYER,
@@ -25,6 +29,11 @@ var input_direction := Vector2.ZERO
 var last_nonzero_direction := Vector2.DOWN
 var last_nonzero_x: float = 1.0
 
+var is_ability_pressed: bool = false
+var is_ability_just_pressed: bool = false
+var is_ability_released: bool = false
+var is_ability_just_released: bool = false
+
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 @onready var debug_speed: Label = $DEBUG_Speed
@@ -43,6 +52,33 @@ func _ready() -> void:
 		player_indicator.hide()
 		player_arrow.hide()
 	animation_playback.travel("walk")
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_echo():
+		return
+
+	var move_actions: Array[String] = ["move_left", "move_right", "move_up", "move_down"]
+	if move_actions.any(event.is_action):
+		input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		get_viewport().set_input_as_handled()
+
+	if event.is_action("ability"):
+		is_ability_pressed = event.is_pressed()
+		is_ability_just_pressed = event.is_pressed()
+		is_ability_released = event.is_released()
+		is_ability_just_released = event.is_released()
+		get_viewport().set_input_as_handled()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is not InputEventMouseButton:
+		return
+	
+	is_ability_pressed = event.is_action_pressed("mouse_ability")
+	is_ability_just_pressed = event.is_action_pressed("mouse_ability")
+	is_ability_released = event.is_action_released("mouse_ability")
+	is_ability_just_released = event.is_action_released("mouse_ability")
 
 
 func _process(_delta: float) -> void:
@@ -67,7 +103,39 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		animation_tree["parameters/walk/BlendSpace2D/blend_position"] = last_nonzero_direction + Vector2(last_nonzero_x, 0)
 		player_indicator.rotation = Vector2.UP.angle_to(input_direction)
 
+	if is_ability_just_pressed:
+		is_ability_just_pressed = false
+		on_ability_just_pressed(state)
+
+	if is_ability_just_released:
+		is_ability_just_released = false
+		on_ability_just_released(state)
+	
+	if is_ability_pressed:
+		on_ability_pressed(state)
+	
+
+	if is_ability_released:
+		on_ability_released(state)
+	
 	collide(state)
+
+
+@warning_ignore("unused_parameter")
+func on_ability_just_pressed(state: PhysicsDirectBodyState2D) -> void:
+	pass
+
+@warning_ignore("unused_parameter")
+func on_ability_just_released(state: PhysicsDirectBodyState2D) -> void:
+	pass
+
+@warning_ignore("unused_parameter")
+func on_ability_pressed(state: PhysicsDirectBodyState2D) -> void:
+	pass
+
+@warning_ignore("unused_parameter")
+func on_ability_released(state: PhysicsDirectBodyState2D) -> void:
+	pass
 
 
 func collide(state: PhysicsDirectBodyState2D) -> void:

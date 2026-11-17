@@ -17,7 +17,6 @@ enum SlipState {
 
 var slip_can_paralyze: bool = false
 var ability_is_passive: bool = true
-var _is_ability_pressed: bool = false
 
 signal slip_state_changed(value: SlipState)
 var slip_state := SlipState.NONE:
@@ -37,24 +36,6 @@ func _ready() -> void:
 	EventBus.slippy_spawned.emit(self)
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_echo():
-		return
-
-	var move_actions: Array[String] = ["move_left", "move_right", "move_up", "move_down"]
-	if move_actions.any(event.is_action):
-		input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
-	_is_ability_pressed = event.is_action_pressed("ability")
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is not InputEventMouseButton:
-		return
-	
-	_is_ability_pressed = event.is_action_pressed("mouse_ability")
-
-
 func _process(delta: float) -> void:
 	super._process(delta)
 	var cooldown_percent: float = (1 - (_slip_cooldown.time_left / _slip_cooldown_duration)) * 100
@@ -67,19 +48,20 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		return
 
 	var final_acceleration: float = acceleration
-
-	if _is_ability_pressed and slip_state == SlipState.NONE:
-		_is_ability_pressed = false
-		slip_state = SlipState.ACTIVE
-		_slip_timer.start(_slip_duration)
-		sfx_slip.play()
-		slip_particles.emitting = true
-		animation_playback.travel("twirl")
-	
 	if slip_state == SlipState.ACTIVE:
 		final_acceleration = slip_accel
 			
 	state.apply_central_force(input_direction * final_acceleration)
+
+
+func on_ability_just_pressed(_state: PhysicsDirectBodyState2D) -> void:
+	if slip_state != SlipState.NONE:
+		return
+	slip_state = SlipState.ACTIVE
+	_slip_timer.start(_slip_duration)
+	sfx_slip.play()
+	slip_particles.emitting = true
+	animation_playback.travel("twirl")
 
 
 func _on_slip_timer_timeout() -> void:

@@ -1,8 +1,12 @@
 extends Actor
 class_name ChargeActor
 
-# NOTES: 
-# Max speed is determined by accel / damp
+enum ChargeState {
+	NONE,
+	CHARGING,
+	READY,
+	ACTIVE
+}
 
 @export var acceleration: float = 1000
 @export var charge_launch_accel: float = 1000
@@ -11,12 +15,7 @@ class_name ChargeActor
 @export var charge_active_time: float = 0.2
 @export var charge_startup_time: float = 1.0
 
-var is_charging_just_pressed: bool = false
-var is_charging_pressed: bool = false
-var is_charging_released: bool = false
-
-var is_charging_active: bool = false
-var is_charging_ready: bool = false
+var charge_state := ChargeState.NONE
 
 @onready var charge_startup_timer: Timer = $ChargeStartupTimer
 @onready var charge_active_timer: Timer = $ChargeActiveTimer
@@ -34,31 +33,6 @@ func _ready() -> void:
 	charge_active_timer.wait_time = charge_active_time
 	charge_startup_timer.wait_time = charge_startup_time
 	charge_ready_vfx.animation_finished.connect(charge_ready_vfx.hide)
-
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_echo():
-		return
-
-	var move_actions: Array[String] = ["move_left", "move_right", "move_up", "move_down"]
-	if move_actions.any(event.is_action):
-		input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-		get_viewport().set_input_as_handled()
-
-	if event.is_action("ability"):
-		is_charging_pressed = event.is_pressed()
-		is_charging_just_pressed = event.is_pressed()
-		is_charging_released = event.is_released()
-		get_viewport().set_input_as_handled()
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is not InputEventMouseButton:
-		return
-	
-	is_charging_pressed = event.is_action_pressed("mouse_ability")
-	is_charging_just_pressed = event.is_action_pressed("mouse_ability")
-	is_charging_released = event.is_action_released("mouse_ability")
 		
 
 func _process(delta: float) -> void:
@@ -75,38 +49,39 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		return
 
 	var final_acceleration: float = acceleration
-	if is_charging_pressed:
+	if charge_state in [ChargeState.CHARGING, ChargeState.READY]:
 		final_acceleration *= charging_speed_modifier
 
 	state.apply_central_force(input_direction * final_acceleration)
-	
-	if is_charging_just_pressed:
-		is_charging_just_pressed = false
-		charge_startup_timer.start()
-		charge_press_sfx.play()
-		charge_vfx.play("startup")
-		charge_vfx.show()
-		ability_cooldown_display.show()
 
-	if is_charging_released:
-		is_charging_released = false
-		charge_vfx.hide()
-		ability_cooldown_display.hide()
-		if is_charging_ready:
-			is_charging_ready = false
-			charge_active_timer.start()
-			is_charging_active = true
-			state.apply_central_impulse(last_nonzero_direction * charge_launch_accel)
-			charge_release_sfx.play()
-			charge_active_particles.emitting = true
-		else:
-			charge_startup_timer.stop()
-	
-	
+
+func on_ability_just_pressed(_state: PhysicsDirectBodyState2D) -> void:
+	charge_state = ChargeState.CHARGING
+	charge_startup_timer.start()
+	charge_press_sfx.play()
+	charge_vfx.play("startup")
+	charge_vfx.show()
+	ability_cooldown_display.show()
+
+
+func on_ability_just_released(state: PhysicsDirectBodyState2D) -> void:
+	charge_vfx.hide()
+	ability_cooldown_display.hide()
+	if charge_state == ChargeState.READY:
+		charge_active_timer.start()
+		charge_state = ChargeState.ACTIVE
+		state.apply_central_impulse(last_nonzero_direction * charge_launch_accel)
+		charge_release_sfx.play()
+		charge_active_particles.emitting = true
+	else:
+		charge_startup_timer.stop()
+		charge_state = ChargeState.NONE
+
+
 func collide(state: PhysicsDirectBodyState2D) -> void:
 	super.collide(state)
 	for i in state.get_contact_count():
-		if not is_charging_active:
+		if charge_state != ChargeState.ACTIVE:
 			break
 		var bumpee: RigidBody2D = state.get_contact_collider_object(i)
 		var bump_normal: Vector2 = state.get_contact_local_normal(i)
@@ -116,14 +91,14 @@ func collide(state: PhysicsDirectBodyState2D) -> void:
 
 
 func _on_charge_active_timer_timeout() -> void:
-	is_charging_active = false
+	charge_state = ChargeState.NONE
 	charge_active_particles.emitting = false
 
 
 func _on_charge_startup_timer_timeout() -> void:
+	charge_state = ChargeState.READY
 	charge_ready_sfx.play()
 	charge_vfx.play("ready")
 	charge_ready_vfx.show()
 	charge_ready_vfx.play("default")
-	is_charging_ready = true
 	ability_cooldown_display.hide()

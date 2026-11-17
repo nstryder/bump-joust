@@ -17,12 +17,13 @@ func _ready() -> void:
 
 
 func _on_charge_attack_interval_timeout() -> void:
-	charge_actor.is_charging_pressed = true
-	charge_actor.is_charging_just_pressed = true
+	charge_actor.is_ability_pressed = true
+	charge_actor.is_ability_just_pressed = true
 	charge_duration.start(charge_actor.charge_startup_time + 0.5)
 
 
 func _on_charge_duration_timeout() -> void:
-	charge_actor.is_charging_pressed = false
-	charge_actor.is_charging_just_pressed = false
-	charge_actor.is_charging_released = true
+	charge_actor.is_ability_pressed = false
+	charge_actor.is_ability_just_pressed = false
+	charge_actor.is_ability_released = true
+	charge_actor.is_ability_just_released = true

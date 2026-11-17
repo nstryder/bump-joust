@@ -17,8 +17,6 @@ enum BounceState {
 @export var landing_force_mod: float = 1.0
 
 
-var _is_ability_pressed: bool = false
-
 signal bounce_state_changed(value: BounceState)
 var _bounce_state := BounceState.NONE:
 	set(value):
@@ -35,24 +33,6 @@ var _tween: Tween
 
 func _ready() -> void:
 	super._ready()
-
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_echo():
-		return
-
-	var move_actions: Array[String] = ["move_left", "move_right", "move_up", "move_down"]
-	if move_actions.any(event.is_action):
-		input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
-	_is_ability_pressed = event.is_action_pressed("ability")
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is not InputEventMouseButton:
-		return
-	
-	_is_ability_pressed = event.is_action_pressed("mouse_ability")
 
 
 func _process(delta: float) -> void:
@@ -103,19 +83,20 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		return
 	
 	var final_acceleration: float = acceleration
-	
-	if _is_ability_pressed and _bounce_state == BounceState.NONE:
-		_is_ability_pressed = false
-		_bounce_state = BounceState.ACTIVE
-		sfx_jump.play()
-		spawn_jump_particles()
-		_start_sprite_jump()
-		toggle_collision(false)
-
 	if _bounce_state == BounceState.ACTIVE:
 		final_acceleration = bounce_accel
 		
 	state.apply_central_force(input_direction * final_acceleration)
+
+
+func on_ability_just_pressed(_state: PhysicsDirectBodyState2D) -> void:
+	if _bounce_state != BounceState.NONE:
+		return
+	_bounce_state = BounceState.ACTIVE
+	sfx_jump.play()
+	spawn_jump_particles()
+	_start_sprite_jump()
+	toggle_collision(false)
 
 
 func _on_bounce_tween_finished() -> void:
