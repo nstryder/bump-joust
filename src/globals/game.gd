@@ -25,6 +25,7 @@ const archetype_scenes: Dictionary[Archetypes, PackedScene] = {
 
 var player_archetype := Archetypes.CHARGEY
 var is_changing_scenes: bool = false
+var is_tutorial_completed: bool = false
 var sudden_death_leftovers: Array[Archetypes] = []
 
 @onready var shroud: ShroudGlobal = Shroud

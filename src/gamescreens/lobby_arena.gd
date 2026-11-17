@@ -19,7 +19,12 @@ var player: Actor
 
 func _ready() -> void:
 	super._ready()
-	stairs.hide()
+	if Game.is_tutorial_completed:
+		stairs.monitoring = true
+		dummy.shadow.queue_free()
+		dummy.queue_free()
+	else:
+		stairs.hide()
 	# roll_archetype()
 	spawn_player()
 
@@ -48,6 +53,7 @@ func _on_actor_rung_out(actor: Actor) -> void:
 		await get_tree().create_timer(0.3).timeout
 		spawn_player()
 	elif actor == dummy:
+		Game.is_tutorial_completed = true
 		reveal_stairs()
 
 
