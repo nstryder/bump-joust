@@ -2,8 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://cm5vyswjcicxs" path="res://assets/gfx/tilesets/stone_floor.tres" id="1_0oaxm"]
 [ext_resource type="Script" uid="uid://cyy2t20ny4s3q" path="res://src/gamescreens/stages/base_components/base_stage.gd" id="2_kbiti"]
-[ext_resource type="PackedScene" uid="uid://bpvlnm2lqmcay" path="res://src/gamescreens/stages/base_components/goop_tile_map.tscn" id="3_04gjc"]
-[ext_resource type="Script" uid="uid://dkc0b4d1pbwvv" path="res://src/gamescreens/stages/base_components/goop_tile_map.gd" id="4_3146c"]
+[ext_resource type="PackedScene" uid="uid://fda671dmo4n8" path="res://src/gamescreens/stages/base_components/slip_tile_map.tscn" id="3_dk0fx"]
 
 [node name="Stage" type="TileMapLayer" unique_id=434215676]
 tile_set = ExtResource("1_0oaxm")
@@ -29,11 +28,7 @@ position = Vector2(960, 540)
 [node name="Shadows" type="Node2D" parent="ArenaMask" unique_id=1290503966 groups=["shadows"]]
 unique_name_in_owner = true
 
-[node name="GoopTileMap" parent="." unique_id=1781249631 instance=ExtResource("3_04gjc")]
-tile_map_data = PackedByteArray()
-collision_enabled = false
-navigation_enabled = false
-script = ExtResource("4_3146c")
+[node name="SlipTileMap" parent="." unique_id=571658095 instance=ExtResource("3_dk0fx")]
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=2074488488]
 

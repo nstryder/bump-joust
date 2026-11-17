@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://fda671dmo4n8"]
+
+[ext_resource type="TileSet" uid="uid://cop23a1t6m52l" path="res://assets/gfx/tilesets/slip_puddle.tres" id="1_d32wl"]
+[ext_resource type="Script" uid="uid://cdk27ujkcd2w1" path="res://src/gamescreens/stages/base_components/slip_tile_map.gd" id="2_rndbj"]
+
+[node name="SlipTileMap" type="TileMapLayer" unique_id=571658095]
+tile_set = ExtResource("1_d32wl")
+script = ExtResource("2_rndbj")

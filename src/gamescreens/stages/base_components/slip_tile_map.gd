@@ -1,7 +1,7 @@
 extends TileMapLayer
 
-
 var slip_actor: SlipActor
+## Stores map coordinates (not local)
 var tracked_tiles: Dictionary[Vector2, GoopTileArea] = {}
 
 func _ready() -> void:
@@ -25,13 +25,25 @@ func add_tracked_tile(tile_coord: Vector2) -> void:
 	add_child(goop)
 	goop.global_position = to_global(map_to_local(tile_coord))
 	goop.timer.timeout.connect(_on_goop_timer_timeout.bind(tile_coord))
-	set_cells_terrain_connect(tracked_tiles.keys(), 0, 0)
+	update_tiles()
 
 
 func remove_tracked_tile(tile_coord: Vector2) -> void:
 	tracked_tiles[tile_coord].queue_free()
 	tracked_tiles.erase(tile_coord)
-	erase_cell(tile_coord)
+	update_tiles()
+
+
+func update_tiles() -> void:
+	clear()
+	# Convert single tiles to use 2x2 brush (because of how Match Corner terrain works)
+	var clustered_tiles: Dictionary[Vector2, bool] = {}
+	for tile in tracked_tiles:
+		clustered_tiles[tile] = true
+		clustered_tiles[tile + Vector2.RIGHT] = true
+		clustered_tiles[tile + Vector2.DOWN] = true
+		clustered_tiles[tile + Vector2.ONE] = true
+	set_cells_terrain_connect(clustered_tiles.keys(), 0, 0)
 
 
 func _on_slippy_spawned(actor: SlipActor) -> void:
