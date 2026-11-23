@@ -6,6 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cmyqbn3dnes7r" path="res://src/gamescreens/stages/stage_lobby.tscn" id="3_f2pjm"]
 [ext_resource type="PackedScene" uid="uid://bvexth15mr13m" path="res://src/actors/dummy.tscn" id="5_8n61f"]
 [ext_resource type="PackedScene" uid="uid://bju7offswhusv" path="res://src/gamescreens/stages/base_components/stairs.tscn" id="5_yi334"]
+[ext_resource type="Texture2D" uid="uid://ducfcm0tg1amj" path="res://assets/gfx/sprites/run_sheet.png" id="7_887rk"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_lwrwe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktohr"]
+atlas = ExtResource("7_887rk")
+region = Rect2(68, 3, 24, 32)
 
 [node name="LobbyArena" unique_id=1490462069 instance=ExtResource("1_rwxjj")]
 script = ExtResource("2_r4sin")
@@ -16,7 +23,7 @@ occlusion_enabled = false
 
 [node name="Dummy" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=55444089 instance=ExtResource("5_8n61f")]
 unique_name_in_owner = true
-position = Vector2(80, 4)
+position = Vector2(0, 4)
 
 [node name="PlayerSpawnPoint" type="Marker2D" parent="." index="3" unique_id=2106376794]
 position = Vector2(872, 544)
@@ -24,4 +31,58 @@ position = Vector2(872, 544)
 [node name="Stairs" parent="." index="4" unique_id=1184712954 instance=ExtResource("5_yi334")]
 position = Vector2(960, 416)
 
+[node name="UI" type="CanvasLayer" parent="." index="6" unique_id=1148673140]
+
+[node name="CharacterSelect" type="VBoxContainer" parent="UI" index="0" unique_id=154544775]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -20.0
+offset_right = -62.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/CharacterSelect" index="0" unique_id=1843903884]
+layout_mode = 2
+text = "Select Character"
+horizontal_alignment = 2
+
+[node name="ChargerSelect" type="Button" parent="UI/CharacterSelect" index="1" unique_id=65494084]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_lwrwe")
+text = "Chargey"
+icon = SubResource("AtlasTexture_ktohr")
+expand_icon = true
+
+[node name="SlippySelect" type="Button" parent="UI/CharacterSelect" index="2" unique_id=918591959]
+modulate = Color(0, 0.6500001, 1, 1)
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_lwrwe")
+text = "Slippy
+"
+icon = SubResource("AtlasTexture_ktohr")
+expand_icon = true
+
+[node name="BouncySelect" type="Button" parent="UI/CharacterSelect" index="3" unique_id=362627491]
+modulate = Color(0.116666794, 1, 0, 1)
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_lwrwe")
+text = "Bouncy"
+icon = SubResource("AtlasTexture_ktohr")
+expand_icon = true
+
 [connection signal="body_entered" from="Stairs" to="." method="_on_stairs_body_entered"]
+[connection signal="pressed" from="UI/CharacterSelect/ChargerSelect" to="." method="_on_charger_select_pressed"]
+[connection signal="pressed" from="UI/CharacterSelect/SlippySelect" to="." method="_on_slippy_select_pressed"]
+[connection signal="pressed" from="UI/CharacterSelect/BouncySelect" to="." method="_on_bouncy_select_pressed"]

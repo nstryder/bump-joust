@@ -21,8 +21,8 @@ func _ready() -> void:
 	super._ready()
 	if Game.is_tutorial_completed:
 		stairs.monitoring = true
-		dummy.shadow.queue_free()
-		dummy.queue_free()
+		# dummy.shadow.queue_free()
+		# dummy.queue_free()
 	else:
 		stairs.hide()
 	# roll_archetype()
@@ -39,12 +39,20 @@ func spawn_player() -> void:
 	actors.add_child(player)
 	player.global_position = player_spawn_point.global_position
 	player.reset_physics_interpolation()
-	spawn_shadow(player.shadow_remote)
+	player.shadow = spawn_shadow(player.shadow_remote)
 
 
 func reveal_stairs() -> void:
 	stairs.show()
 	stairs.monitoring = true
+
+
+func switch_characters(archetype: Game.Archetypes) -> void:
+	if Game.player_archetype == archetype:
+		return
+	player.die()
+	Game.player_archetype = archetype
+	spawn_player()
 
 
 func _on_actor_rung_out(actor: Actor) -> void:
@@ -63,3 +71,15 @@ func _on_stairs_body_entered(body: Node2D) -> void:
 	if tween and tween.is_running():
 		await tween.finished
 	Game.start_new_level()
+
+
+func _on_charger_select_pressed() -> void:
+	switch_characters(Game.Archetypes.CHARGEY)
+	
+
+func _on_slippy_select_pressed() -> void:
+	switch_characters(Game.Archetypes.SLIPPY)
+
+
+func _on_bouncy_select_pressed() -> void:
+	switch_characters(Game.Archetypes.BOUNCY)
