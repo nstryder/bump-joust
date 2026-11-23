@@ -6,6 +6,8 @@ const SUDDEN_DEATH = preload("uid://c3bopdykmd1tg")
 const LEVELS: Array[PackedScene] = [
 	preload("res://src/gamescreens/levels/level_1.tscn"),
 	preload("res://src/gamescreens/levels/level_2.tscn"),
+	preload("res://src/gamescreens/levels/level_3.tscn"),
+	preload("res://src/gamescreens/levels/level_4.tscn"),
 ]
 
 const CHARGEY = preload("uid://devg3o5en8yjo")

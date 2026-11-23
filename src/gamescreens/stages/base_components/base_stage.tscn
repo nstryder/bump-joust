@@ -20,7 +20,7 @@ linear_damp = 10.0
 [node name="ArenaCollisionPolygon" type="CollisionPolygon2D" parent="ArenaBounds" unique_id=1771997983]
 unique_name_in_owner = true
 
-[node name="ArenaMask" type="Polygon2D" parent="." unique_id=1686250696]
+[node name="ArenaMask" type="Polygon2D" parent="." unique_id=1596175116]
 unique_name_in_owner = true
 clip_children = 1
 position = Vector2(960, 540)
@@ -29,6 +29,16 @@ position = Vector2(960, 540)
 unique_name_in_owner = true
 
 [node name="SlipTileMap" parent="." unique_id=571658095 instance=ExtResource("3_dk0fx")]
+
+[node name="CameraBoundsMarkers" type="Node2D" parent="." unique_id=1470108024]
+
+[node name="Marker2D" type="Marker2D" parent="CameraBoundsMarkers" unique_id=622298093]
+position = Vector2(640, 360)
+gizmo_extents = 720.0
+
+[node name="Marker2D2" type="Marker2D" parent="CameraBoundsMarkers" unique_id=750511474]
+position = Vector2(1280, 720)
+gizmo_extents = 720.0
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=2074488488]
 
