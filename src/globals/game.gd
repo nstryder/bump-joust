@@ -1,9 +1,12 @@
 extends Node
 
 const LOBBY = preload("uid://bv2f5c07uby2a")
-const MAIN_ARENA = preload("uid://ngp1y6emdbyq")
 const SUDDEN_DEATH = preload("uid://c3bopdykmd1tg")
 
+const LEVELS: Array[PackedScene] = [
+	preload("res://src/gamescreens/levels/level_1.tscn"),
+	preload("res://src/gamescreens/levels/level_2.tscn"),
+]
 
 const CHARGEY = preload("uid://devg3o5en8yjo")
 const BOUNCY = preload("uid://bw5a4onwkgd1")
@@ -27,6 +30,7 @@ var player_archetype := Archetypes.CHARGEY
 var is_changing_scenes: bool = false
 var is_tutorial_completed: bool = false
 var sudden_death_leftovers: Array[Archetypes] = []
+var current_level: int = 0
 
 @onready var shroud: ShroudGlobal = Shroud
 
@@ -62,8 +66,16 @@ func change_scene(new_scene: PackedScene) -> void:
 	is_changing_scenes = false
 
 
-func start_main_game() -> void:
-	change_scene(MAIN_ARENA)
+func start_new_level() -> void:
+	change_scene(LEVELS[current_level])
+
+
+func advance_level() -> void:
+	current_level += 1
+	if current_level < LEVELS.size():
+		start_new_level()
+	else:
+		return_to_lobby()
 
 
 func start_sudden_death() -> void:
@@ -71,4 +83,5 @@ func start_sudden_death() -> void:
 
 
 func return_to_lobby() -> void:
+	current_level = 0
 	change_scene(LOBBY)

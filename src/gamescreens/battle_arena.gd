@@ -62,8 +62,6 @@ func stop_game() -> void:
 	set_process(false)
 	level_timer.stop()
 	toggle_actors_inputs(false)
-	await get_tree().create_timer(2.0).timeout
-	Game.return_to_lobby()
 
 
 func is_game_won() -> bool:
@@ -78,8 +76,26 @@ func win(kill_cam_position: Vector2) -> void:
 	stop_game()
 	Audio.play_2d(win_sfx, kill_cam_position)
 	show_kill_cam(kill_cam_position)
+	await get_tree().create_timer(2.0).timeout
+	Game.advance_level()
 
-	
+
+func lose() -> void:
+	show_message("You lose...")
+	stop_game()
+	await get_tree().create_timer(2.0).timeout
+	Game.return_to_lobby()
+
+
+func tie() -> void:
+	show_message("Time out!")
+	stop_game()
+	var leftovers: Array = actors.get_children().map(func(actor: Actor) -> Game.Archetypes: return actor.archetype)
+	Game.sudden_death_leftovers.assign(leftovers)
+	await get_tree().create_timer(2.0).timeout
+	Game.start_sudden_death()
+
+
 func show_kill_cam(death_position: Vector2) -> void:
 	var cam_tween := create_tween()
 	cam_tween.set_trans(Tween.TRANS_CUBIC)
@@ -100,8 +116,7 @@ func _on_actor_rung_out(actor: Actor) -> void:
 	if game_is_over:
 		return
 	if actor.controller == Actor.Controller.PLAYER:
-		show_message("You lose...")
-		stop_game()
+		lose()
 	else:
 		var killed_position: Vector2 = actor.global_position
 		await get_tree().process_frame
@@ -110,11 +125,4 @@ func _on_actor_rung_out(actor: Actor) -> void:
 
 
 func _on_level_timer_timeout() -> void:
-	game_is_over = true
-	var leftovers: Array = actors.get_children().map(func(actor: Actor) -> Game.Archetypes: return actor.archetype)
-	Game.sudden_death_leftovers.assign(leftovers)
-	set_process(false)
-	toggle_actors_inputs(false)
-	show_message("Time out!")
-	await get_tree().create_timer(2.0).timeout
-	Game.start_sudden_death()
+	tie()

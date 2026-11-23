@@ -62,4 +62,4 @@ func _on_stairs_body_entered(body: Node2D) -> void:
 	print("Hello??")
 	if tween and tween.is_running():
 		await tween.finished
-	Game.start_main_game()
+	Game.start_new_level()
