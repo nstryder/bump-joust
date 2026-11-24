@@ -8,6 +8,8 @@ const LEVELS: Array[PackedScene] = [
 	preload("res://src/gamescreens/levels/level_2.tscn"),
 	preload("res://src/gamescreens/levels/level_3.tscn"),
 	preload("res://src/gamescreens/levels/level_4.tscn"),
+	preload("res://src/gamescreens/levels/boss_level.tscn"),
+	preload("res://src/gamescreens/credits_screen.tscn")
 ]
 
 const CHARGEY = preload("uid://devg3o5en8yjo")
@@ -69,6 +71,7 @@ func change_scene(new_scene: PackedScene) -> void:
 
 
 func start_new_level() -> void:
+	print(current_level, ": ", LEVELS[current_level])
 	change_scene(LEVELS[current_level])
 
 

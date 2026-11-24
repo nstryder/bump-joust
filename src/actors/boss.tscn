@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://ch0fx5832psf6"]
+
+[ext_resource type="PackedScene" uid="uid://d0j7d7woxm48l" path="res://src/actors/base_actor.tscn" id="1_acepf"]
+[ext_resource type="Script" uid="uid://dwutf73gbflq0" path="res://src/actors/killer.gd" id="2_27rrs"]
+[ext_resource type="Texture2D" uid="uid://cdf2q5oi6efh8" path="res://assets/gfx/sprites/environmental/spheres.png" id="3_fh13f"]
+[ext_resource type="PackedScene" uid="uid://cuf05tcxeheic" path="res://src/actors/cpu_controllers/killer_cpu_control.tscn" id="4_42wh5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acepf"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(0, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27rrs"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fh13f"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(32, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42wh5"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(48, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl50s"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(64, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyyqh"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(80, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16ht7"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(96, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1h7sr"]
+atlas = ExtResource("3_fh13f")
+region = Rect2(112, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dgjy7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acepf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27rrs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fh13f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42wh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl50s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyyqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16ht7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1h7sr")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r782i"]
+radius = 8.0
+
+[node name="Boss" unique_id=500541823 instance=ExtResource("1_acepf")]
+linear_damp_mode = 1
+linear_damp = 20.0
+script = ExtResource("2_27rrs")
+acceleration = 4000.0
+archetype = 3
+knockback_take_modifier = 2.0
+controller = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1060817921]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_dgjy7")
+autoplay = "default"
+frame = 1
+frame_progress = 0.26452938
+
+[node name="Sprite2D" parent="." index="4" unique_id=170752210]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="5" unique_id=1203170032]
+visible = true
+shape = SubResource("CircleShape2D_r782i")
+
+[node name="KillerCpuControl" parent="." index="8" unique_id=1650306333 instance=ExtResource("4_42wh5")]

@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://b8ybpka337rn3"]
+
+[ext_resource type="Script" uid="uid://cmnvlydgfkrm8" path="res://src/gamescreens/credits_screen.gd" id="1_imcqt"]
+[ext_resource type="Texture2D" uid="uid://kt37afurdp4f" path="res://assets/gfx/textures/pixelart_starfield_corona.png" id="1_voxn5"]
+[ext_resource type="AudioStream" uid="uid://ca5rgtjwkrat0" path="res://assets/audio/bgm/lobby.ogg" id="2_61k7s"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_od81e"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_lwrwe"]
+font_size = 128
+outline_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_ktohr"]
+font_size = 48
+
+[node name="CreditsScreen" type="Control" unique_id=2003628030]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_imcqt")
+bgm = ExtResource("2_61k7s")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1073408472]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1539195003]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="CenterContainer/VBoxContainer" unique_id=689625741]
+layout_mode = 2
+text = "You are the champion of..."
+label_settings = SubResource("LabelSettings_od81e")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1590515019]
+layout_mode = 2
+text = "BUMP JOUST"
+label_settings = SubResource("LabelSettings_lwrwe")
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer" unique_id=112011780]
+layout_mode = 2
+text = "By nstryder & Wisp!"
+label_settings = SubResource("LabelSettings_ktohr")
+horizontal_alignment = 1
+
+[node name="ReplayButton" type="Button" parent="." unique_id=368832849]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -192.0
+offset_right = 47.0
+offset_bottom = -161.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Play again"
+
+[node name="CenterPoint" type="Marker2D" parent="." unique_id=1694807925]
+position = Vector2(960, 540)
+
+[node name="Parallax2D" type="Parallax2D" parent="CenterPoint" unique_id=798090055]
+z_index = -1
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(1920, 1080)
+autoscroll = Vector2(32, 0)
+
+[node name="Background" type="Sprite2D" parent="CenterPoint/Parallax2D" unique_id=1606374311]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("1_voxn5")
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[connection signal="pressed" from="ReplayButton" to="." method="_on_replay_button_pressed"]

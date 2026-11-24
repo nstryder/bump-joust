@@ -89,10 +89,10 @@ autoplay = "default"
 frame = 2
 frame_progress = 0.4609639
 
-[node name="Sprite2D" parent="." index="1" unique_id=170752210]
+[node name="Sprite2D" parent="." index="4" unique_id=170752210]
 visible = false
 
-[node name="CollisionShape2D" parent="." index="2" unique_id=1203170032]
+[node name="CollisionShape2D" parent="." index="5" unique_id=1203170032]
 visible = true
 shape = SubResource("CircleShape2D_r782i")
 

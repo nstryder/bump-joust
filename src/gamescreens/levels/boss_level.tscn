@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bytlyquue1ijb"]
+
+[ext_resource type="PackedScene" uid="uid://dpdq1iv6nrbtw" path="res://src/gamescreens/battle_arena.tscn" id="1_omoib"]
+[ext_resource type="Script" uid="uid://cr20qippmi83s" path="res://src/gamescreens/levels/boss_level.gd" id="2_l14y6"]
+[ext_resource type="AudioStream" uid="uid://oy34gbdxdxyo" path="res://assets/audio/bgm/boss_theme.ogg" id="3_d0n0y"]
+[ext_resource type="PackedScene" uid="uid://xbf5tqqmpuky" path="res://src/gamescreens/stages/stage_boss.tscn" id="3_rqk36"]
+[ext_resource type="PackedScene" uid="uid://ch0fx5832psf6" path="res://src/actors/boss.tscn" id="4_7et5y"]
+
+[node name="BossLevel" unique_id=1490462069 instance=ExtResource("1_omoib")]
+script = ExtResource("2_l14y6")
+bgm = ExtResource("3_d0n0y")
+
+[node name="StageBoss" parent="StageHolder" parent_id_path=PackedInt32Array(450520773) index="0" unique_id=434215676 instance=ExtResource("3_rqk36")]
+
+[node name="Boss" parent="Actors" parent_id_path=PackedInt32Array(348940167) index="0" unique_id=500541823 instance=ExtResource("4_7et5y")]
+position = Vector2(-176, 4)
+
+[node name="LevelIndicator" parent="UI" parent_id_path=PackedInt32Array(2000774958) index="0" unique_id=509078585]
+text = "Boss Level"
