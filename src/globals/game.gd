@@ -32,6 +32,7 @@ const archetype_scenes: Dictionary[Archetypes, PackedScene] = {
 
 var player_archetype := Archetypes.CHARGEY
 var is_changing_scenes: bool = false
+var is_advancing_level: bool = false
 var is_tutorial_completed: bool = false
 var sudden_death_leftovers: Array[Archetypes] = []
 var current_level: int = 0
@@ -59,15 +60,16 @@ func instance_cpus() -> Array[Actor]:
 func change_scene(new_scene: PackedScene) -> void:
 	is_changing_scenes = true
 	await get_tree().process_frame
-	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
+	# get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	await shroud.fade_out()
 	get_tree().change_scene_to_packed(new_scene)
 	await get_tree().process_frame
-	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
+	# get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
 	await shroud.fade_in()
 	await get_tree().process_frame
-	get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+	# get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
 	is_changing_scenes = false
+	is_advancing_level = false
 
 
 func start_new_level() -> void:
@@ -76,6 +78,9 @@ func start_new_level() -> void:
 
 
 func advance_level() -> void:
+	if is_advancing_level:
+		return
+	is_advancing_level = true
 	current_level += 1
 	if current_level < LEVELS.size():
 		start_new_level()

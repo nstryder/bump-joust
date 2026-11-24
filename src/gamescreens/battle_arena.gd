@@ -51,12 +51,6 @@ func show_message(text: String) -> void:
 	message.show()
 
 
-func toggle_actors_inputs(value: bool) -> void:
-	print("Toggling input to ", value)
-	for actor: Actor in actors.get_children():
-		actor.is_input_enabled = value
-
-
 func stop_game() -> void:
 	game_is_over = true
 	set_process(false)
@@ -72,6 +66,8 @@ func is_game_won() -> bool:
 
 
 func win(kill_cam_position: Vector2) -> void:
+	if game_is_over:
+		return
 	show_message("You win!")
 	stop_game()
 	Audio.play_2d(win_sfx, kill_cam_position)
@@ -81,6 +77,8 @@ func win(kill_cam_position: Vector2) -> void:
 
 
 func lose() -> void:
+	if game_is_over:
+		return
 	show_message("You lose...")
 	stop_game()
 	await get_tree().create_timer(2.0).timeout
@@ -88,6 +86,8 @@ func lose() -> void:
 
 
 func tie() -> void:
+	if game_is_over:
+		return
 	show_message("Time out!")
 	stop_game()
 	var leftovers: Array = actors.get_children().map(func(actor: Actor) -> Game.Archetypes: return actor.archetype)

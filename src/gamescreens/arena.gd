@@ -65,6 +65,12 @@ func reset_collide_flag() -> void:
 	collided_this_frame = false
 
 
+func toggle_actors_inputs(value: bool) -> void:
+	print("Toggling input to ", value)
+	for actor: Actor in actors.get_children():
+		actor.is_input_enabled = value
+
+
 func _interpolate_hitstop(curve_x: float) -> void:
 	Engine.time_scale = hitstop_curve.sample_baked(curve_x)
 
