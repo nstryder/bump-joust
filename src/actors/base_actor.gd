@@ -53,8 +53,7 @@ func _ready() -> void:
 		player_arrow.hide()
 	animation_playback.travel("walk")
 
-
-func _unhandled_key_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_echo():
 		return
 
@@ -70,15 +69,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		is_ability_just_released = event.is_released()
 		get_viewport().set_input_as_handled()
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is not InputEventMouseButton:
-		return
-	
-	is_ability_pressed = event.is_action_pressed("mouse_ability")
-	is_ability_just_pressed = event.is_action_pressed("mouse_ability")
-	is_ability_released = event.is_action_released("mouse_ability")
-	is_ability_just_released = event.is_action_released("mouse_ability")
+	if event is InputEventMouseButton:
+		is_ability_pressed = event.is_action_pressed("mouse_ability")
+		is_ability_just_pressed = event.is_action_pressed("mouse_ability")
+		is_ability_released = event.is_action_released("mouse_ability")
+		is_ability_just_released = event.is_action_released("mouse_ability")
 
 
 func _process(_delta: float) -> void:
