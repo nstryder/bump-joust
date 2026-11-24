@@ -2,7 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://bm6bbakmfe0yg" path="res://src/gamescreens/arena.tscn" id="1_pa7xh"]
 [ext_resource type="Script" uid="uid://dfphalb55445v" path="res://src/gamescreens/battle_arena.gd" id="2_pa7xh"]
-[ext_resource type="AudioStream" uid="uid://3xsa51ooja78" path="res://assets/audio/bgm/main_theme.ogg" id="3_kogp3"]
+[ext_resource type="AudioStream" uid="uid://dwy2cbj67vfjk" path="res://assets/audio/bgm/main_theme_intro.ogg" id="3_e256b"]
+[ext_resource type="AudioStream" uid="uid://dby4kef3bocu8" path="res://assets/audio/bgm/main_theme_loop.ogg" id="4_cb57r"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_q85iv"]
+clip_count = 2
+clip_0/name = &"Main Theme Intro"
+clip_0/stream = ExtResource("3_e256b")
+clip_0/auto_advance = 1
+clip_0/next_clip = 1
+clip_1/name = &"Main Theme Loop"
+clip_1/stream = ExtResource("4_cb57r")
+clip_1/auto_advance = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_nkkox"]
 font_size = 36
@@ -115,7 +126,7 @@ font_size = 32
 
 [node name="BattleArena" unique_id=1490462069 instance=ExtResource("1_pa7xh")]
 script = ExtResource("2_pa7xh")
-bgm = ExtResource("3_kogp3")
+bgm = SubResource("AudioStreamInteractive_q85iv")
 
 [node name="LevelTimer" type="Timer" parent="." index="3" unique_id=677703288]
 wait_time = 20.0
