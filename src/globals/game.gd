@@ -43,6 +43,7 @@ var current_level: int = 0
 func instance_player() -> Actor:
 	var player: Actor = archetype_scenes[player_archetype].instantiate()
 	player.controller = Actor.Controller.PLAYER
+	player.knockback_give_modifier *= 1.5
 	return player
 
 
